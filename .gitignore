@@ -1,3 +1,10 @@
+
+
+bin
+obj
+*.suo
+.vs
+
 # Logs
 logs
 *.log
