@@ -11,77 +11,35 @@ namespace Fight1PvG
 			var Pname = Console.ReadLine();
 			Console.WriteLine("\nprepare to fight, " + Pname + "\n");
 			Console.WriteLine("your foe, GOBLIN!!!");
-			Console.WriteLine("\nGoblin Health: 70\n");
-			Console.WriteLine("Your Health: 100\n");
+			Console.WriteLine("\nGoblin Health: 10\n");
+			Console.WriteLine("Your Health: 10\n");
 			PlayerActions();
-		}
-		static void Pattack3()
-		{
-			int least = 1;
-			int greatest = 7;
-			int pAttack0 = GetRandom(least, greatest);
-			int pAttack1 = GetRandom(least, greatest);
-			int pAttack2 = GetRandom(least, greatest);
-			int least1 = 1;
-			int greatest1 = 10;
-			int gdefend = GetRandom(least1, greatest1);
-			int pAttack = pAttack0 + pAttack1 + pAttack2 - gdefend;
-			int gHealth = 70 - pAttack;
-			Console.WriteLine("\nyou strike a deadly slice with your blade three times\n");
-			Console.WriteLine("\nyou deal " + pAttack0 + " damage\n");
-			Console.WriteLine("you deal " + pAttack1 + " damage\n");
-			Console.WriteLine("you deal " + pAttack2 + " damage\n");
-			Console.WriteLine("Goblin takes " + pAttack + " damage\n");
-			Console.WriteLine("Goblin Health:" + gHealth);
-			if (gHealth <= 0)
-			{
-				Console.WriteLine("you win\n");
-				OgreIntro();
-			}
-			if (gHealth >= 0)
-			{
-				Gattack();
-			}
 		}
 		static void Gattack2()
 		{
-			int least2 = 1;
-			int greatest2 = 2;
-			int dType = GetRandom(least2, greatest2);
 			int least1 = 1;
 			int greatest1 = 10;
 			int dResult = GetRandom(least1, greatest1);
 			Console.WriteLine("you gain " + dResult + " block");
-			if (dType == 2) 
+			int least = 1;
+			int greatest = 12;
+			int gAttack1 = GetRandom(least, greatest);
+			int least2 = 1;
+			int greatest2 = 12;
+			int gAttack2 = GetRandom(least2, greatest2);
+			int gAttack = gAttack1 + gAttack2 - dResult;
+			Console.WriteLine("Goblin damage: " + gAttack);
+			int pHealth = 10;
+			int eResult = GAttackArray(pHealth, gAttack);
+			if (eResult < 1)
 			{
-				Console.WriteLine("Goblin attacks and just misses you...\n");
-				PlayerActions();
+				Console.WriteLine("you lose...\n");
 			}
-			if (dType == 1)
-			{
-				int least = 1;
-				int greatest = 12;
-				int gAttack1 = GetRandom(least, greatest);
-				Console.WriteLine("Goblin damage: " + gAttack1);
-				int gAttack = gAttack1 - dResult;
-				int pHealth = 100;
-				int eResult = gAttackArray(pHealth, gAttack);
-				Console.WriteLine(eResult);
-				if (eResult <= 0)
-				{
-					Console.WriteLine("you lose...\n");
-				}
-				if (eResult > 0)
-				{
-					pHealth = eResult;
-				}
-				PlayerActions();
-			}
+			PlayerActions();
 		}
-		static int gAttackArray(int health, int attack)
+		static int GAttackArray(int health, int attack)
 		{
 			int eResult = health - attack;
-			Console.WriteLine("\nGoblin attacks twice, his blade going up and you being to slow to dodge it...\n");
 			Console.WriteLine("takes " + attack + " damage\n");
 			Console.WriteLine("Your Health: " + eResult);
 			return eResult;
@@ -114,12 +72,12 @@ namespace Fight1PvG
 		static void Pattack()
 		{
 			int least = 1;
-			int greatest = 7;
+			int greatest = 5;
 			int pAttack0 = GetRandom(least, greatest);
 			int pAttack1 = GetRandom(least, greatest);
 			int pAttack2 = GetRandom(least, greatest);
 			int pAttack = pAttack0 + pAttack1 + pAttack2;
-			int gHealth = 70 - pAttack;
+			int gHealth = 7 - pAttack;
 			Console.WriteLine("\nyou strike a deadly slice with your blade three times\n");
 			Console.WriteLine("\nyou deal " + pAttack0 + " damage\n");
 			Console.WriteLine("you deal " + pAttack1 + " damage\n");
@@ -139,36 +97,22 @@ namespace Fight1PvG
 		static void Gattack()
 		{
 			int least1 = 1;
-			int greatest1 = 3;
-			int gAttack = GetRandom(least1, greatest1);
-			if (gAttack == 3)
+			int greatest1 = 12;
+			int gAttack1 = GetRandom(least1, greatest1);
+			int least = 1;
+			int greatest = 12;
+			int gAttack2 = GetRandom(least, greatest);
+			int gAttack = gAttack1 + gAttack2;
+			Console.WriteLine("Goblin damage: " + gAttack);
+			int pHealth = 10;
+			int eResult = pHealth - gAttack;
+			Console.WriteLine("takes " + gAttack + " damage\n");
+			Console.WriteLine("Your Health: " + eResult);
+			if (eResult < 1)
 			{
-				Pattack3();
+				Console.WriteLine("you lose...\n");
 			}
-			if (gAttack == 1)
-			{
-				Console.WriteLine("Goblin attacks and just misses you...\n");
-				PlayerActions();
-			}
-			if (gAttack == 2)
-			{
-				int least = 1;
-				int greatest = 12;
-				int gAttack2 = GetRandom(least, greatest);
-				Console.WriteLine(gAttack2);
-				int pHealth = 100;
-				int eResult = gAttackArray(pHealth, gAttack);
-				Console.WriteLine(eResult);
-				if (eResult <= 0)
-				{
-					Console.WriteLine("you lose...\n");
-				}
-				if (eResult > 0)
-				{
-					pHealth = eResult;
-				}
-				PlayerActions();
-			}
+			PlayerActions();
 		}
 
 		static int GetRandom(int min, int max)
@@ -180,8 +124,8 @@ namespace Fight1PvG
 		{
 			Console.WriteLine("\nyour next foe...\n");
 			Console.WriteLine("OGRE!!!\n");
-			Console.WriteLine("Ogre Health: 150\n");
-			Console.WriteLine("your Health: 125");
+			Console.WriteLine("Ogre Health: 15\n");
+			Console.WriteLine("your Health: 13");
 			PlayerActions2();
 		}
 		static void PlayerActions2()
@@ -196,13 +140,13 @@ namespace Fight1PvG
 					Pattack2();
 					break;
 				case "2":
-					//Pdefend2();
+					Oattack2();
 					break;
 				case "attack":
 					Pattack2();
 					break;
 				case "defend":
-					//Pdefend2();
+					Oattack2();
 					break;
 				default:
 					PlayerActions2();
@@ -211,13 +155,13 @@ namespace Fight1PvG
 		}
 		static void Pattack2()
 		{
-			int least = 7;
+			int least = 1;
 			int greatest = 10;
 			int pAttack0 = GetRandom(least, greatest);
 			int pAttack1 = GetRandom(least, greatest);
 			int pAttack2 = GetRandom(least, greatest);
 			int pAttack = pAttack0 + pAttack1 + pAttack2;
-			int oHealth = 150 - pAttack;
+			int oHealth = 15 - pAttack;
 			Console.WriteLine("\nyou strike a deadly slice with your blade three times\n");
 			Console.WriteLine("\nyou deal " + pAttack0 + " damage\n");
 			Console.WriteLine("you deal " + pAttack1 + " damage\n");
@@ -236,24 +180,42 @@ namespace Fight1PvG
 		static void Oattack()
 		{
 			int least = 1;
-			int greatest = 85;
-			int pHealth = 125;
-			int oAttack = GetRandom(least, greatest);
+			int greatest = 15;
+			int pHealth = 13;
+			int oAttack1 = GetRandom(least, greatest);
 			int oAttack2 = GetRandom(least, greatest);
-			int eResult = OAttackArray(pHealth, oAttack);
-			if (pHealth <= 0)
+			int oAttack = oAttack1 + oAttack2;
+			Console.WriteLine("Ogre damage " + oAttack);
+			int eResult = pHealth - oAttack;
+			Console.WriteLine("you take " + oAttack + " damage\n");
+			Console.WriteLine("Your Health: " + eResult);
+			if (pHealth < 1)
 			{
 				Console.WriteLine("you lose...\n");
 			}
 			PlayerActions2();
 		}
-		static int OAttackArray(int health, int attack)
+		static void Oattack2()
 		{
-			int eResult = health - attack;
-			Console.WriteLine("\nOgre attacks twice, his Fence Post going Down on your head and you being to slow to dodge it...\n");
-			Console.WriteLine("you take " + attack + " damage\n");
+			int least1 = 1;
+			int greatest1 = 15;
+			int dResult1 = GetRandom(least1, greatest1);
+			Console.WriteLine("you gain " + dResult1 + " block\n");
+			int least = 1;
+			int greatest = 15;
+			int pHealth = 13;
+			int oAttack1 = GetRandom(least, greatest);
+			int oAttack2 = GetRandom(least, greatest);
+			int oAttack = oAttack1 + oAttack2 - dResult1;
+			Console.WriteLine("Ogre damage: " + oAttack);
+			int eResult = pHealth - oAttack;
+			Console.WriteLine("you take " + oAttack + " damage\n");
 			Console.WriteLine("Your Health: " + eResult);
-			return eResult;
+			if (pHealth < 1)
+			{
+				Console.WriteLine("you lose...\n");
+			}
+			PlayerActions2();
 		}
 	}
 }
