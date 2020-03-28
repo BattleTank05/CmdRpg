@@ -90,15 +90,15 @@ namespace Environments1
                 Console.WriteLine("4 See your stats and gear\n");
             }
         }
-        static void statsNgear()
+        static void StatsNgear()
         {
             Console.WriteLine("your stats:\n");
-            Console.WriteLine("Strength: 3 (+3)(Gear)\n");
+            Console.WriteLine("Strength: 2 (+2)(Gear)\n");
             Console.WriteLine("Dodge: 0 (No Modifiers)\n");
             Console.WriteLine("Intellect: 0 (No Modifiers)\n");
             Console.WriteLine("Armor: 5-10\n");
             Console.WriteLine("Weapons: shortsword(), shortbow()\n");
-            Console.WriteLine("Gear: worn Leather Armor(+5 Armor)\n");
+            Console.WriteLine("Gear: worn Leather Armor(+5 Armor)(+2 Strength)\n");
             Console.WriteLine("you have no items at this time\n");
         }
         static void PActions()
@@ -120,7 +120,7 @@ namespace Environments1
                 //    Person1();
                 //    break;
                 case "5":
-                    statsNgear();
+                    StatsNgear();
                     break;
                 default:
                     PActions();
@@ -136,6 +136,7 @@ namespace Environments1
             Console.WriteLine("2 go up to the bar and ask the bartender about the latest rumor\n");
             Console.WriteLine("3 Leave\n");
             Console.WriteLine("4 see your stats and gear\n");
+            Tavern();
         }
         static void Tavern() 
         {

@@ -16,7 +16,10 @@ namespace Compendium1
             string UserInfo = Console.ReadLine();
             switch (UserInfo)
             {
-                case "Thief":
+                case "rogue":
+                    Rogue();
+                    break;
+                case "thief":
                     Thief();
                     break;
                
@@ -50,6 +53,13 @@ namespace Compendium1
                     break;
             }
             return UserInfo;
+        }
+        static void Rogue() 
+        {
+            Console.WriteLine("Rogues are fast, sly, very slippery and hard to hit. They specialize in the Dodge Modifier, and they are very stealthy about their buisness.");
+            Console.WriteLine("They can easily catch you by surprise, so be careful!");
+            Console.WriteLine("Note: when you see your opponents class and there is a '*' after it, that means they have mastered the class and get extra buffs\n");
+            UserInput();
         }
         static void Stats()
         {
