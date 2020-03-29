@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CmdRpg.Game", "CmdRpg.Game\CmdRpg.Game.csproj", "{DD203F11-C251-43A4-8BB2-0E3845BDE49B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Environments1", "Environments1\Environments1.csproj", "{9EFFB07F-779D-44C2-BA70-1D28BEA2E1C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Environments1", "Environments1\Environments1.csproj", "{9EFFB07F-779D-44C2-BA70-1D28BEA2E1C2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Compendium1.0", "Dictionary1\Compendium1.0.csproj", "{A68E75AF-B418-489B-B24F-BBEB65C4E1A7}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Facts Practice 1", "Facts Practice 1\Facts Practice 1.csproj", "{BCD74A06-20F5-44C2-8708-FCC0677641A2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculator_1.4", "Calculator_1.4\Calculator_1.4.csproj", "{2ACED211-3E84-4857-BB75-8BCA9CAC0758}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Randall's code", "Randall's code\Randall's code.pyproj", "{551C7C20-CB56-47E2-B276-83715914BB1D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,8 @@ Global
 		{2ACED211-3E84-4857-BB75-8BCA9CAC0758}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2ACED211-3E84-4857-BB75-8BCA9CAC0758}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2ACED211-3E84-4857-BB75-8BCA9CAC0758}.Release|Any CPU.Build.0 = Release|Any CPU
+		{551C7C20-CB56-47E2-B276-83715914BB1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{551C7C20-CB56-47E2-B276-83715914BB1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
