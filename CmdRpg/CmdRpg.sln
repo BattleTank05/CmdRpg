@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculator_1.4", "Calculato
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Randall's code", "Randall's code\Randall's code.pyproj", "{551C7C20-CB56-47E2-B276-83715914BB1D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Class_Practice1", "Class_Practice1\Class_Practice1.csproj", "{BE572B06-0219-4205-A00A-9ACCBE083FF2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{2ACED211-3E84-4857-BB75-8BCA9CAC0758}.Release|Any CPU.Build.0 = Release|Any CPU
 		{551C7C20-CB56-47E2-B276-83715914BB1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{551C7C20-CB56-47E2-B276-83715914BB1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE572B06-0219-4205-A00A-9ACCBE083FF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE572B06-0219-4205-A00A-9ACCBE083FF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE572B06-0219-4205-A00A-9ACCBE083FF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE572B06-0219-4205-A00A-9ACCBE083FF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
