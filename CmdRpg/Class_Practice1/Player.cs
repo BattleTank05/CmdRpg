@@ -10,8 +10,10 @@ namespace Class_Practice1
         public int Weapon;
         public int Gear = 0;
         public int Health = 15;
-        public int Block = 12;
-        public int Parry = 6;
+        public int MinBlock = 1;
+        public int MaxBlock = 12;
+        public int MinParry = 1;
+        public int MaxParry = 6;
         public int Strength = 0;
         public int Dodge = 0;
         public int Intellect = 0;
@@ -21,7 +23,6 @@ namespace Class_Practice1
         public Player(string playerName)
         {
             PlayerName = playerName;
-            Console.WriteLine(playerName);
         }
         public int PlayerAttack(int TrollHealth, int TrollArmor, int TrollParry, int PlayerMinDamage, int PlayerMaxDamage, int PlayerStrength, int PlayerAttackAmount) 
         {
@@ -44,7 +45,8 @@ namespace Class_Practice1
         }
         public int Player_Defend(int PlayerBlock) 
         {
-            PlayerBlock = PlayerBlock + Gear;
+            PlayerBlock1 = GetRandom(PlayerBlockMin, PlayerBlockMax);
+            PlayerBlock = PlayerBlock1 + Gear;
             Console.WriteLine("you gain " + PlayerBlock + " Block");
             return PlayerBlock;
         }

@@ -31,13 +31,15 @@ namespace Class_Practice1
             string PlayerName = Console.ReadLine();
             Player player1 = new Player(PlayerName);
             player1.Health += 10;
-            player1.Block += 2;
+            player1.MinBlock += 2;
+            player1.MaxBlock += 2;
             player1.Parry += 1;
             player1.Strength += 2;
             player1.Dodge += 1;
             player1.Intellect += 1;
             Console.WriteLine("Your Health: " + player1.Health);
-            Console.WriteLine("Your Armor: " + player1.Block);
+            Console.WriteLine("Your Armor(Min): " + player1.MinBlock);
+            Console.WriteLine("Your Armor(Max): " + player1.MaxBlock);
             Console.WriteLine("Your Strength: " + player1.Strength);
             Console.WriteLine("Your Dodge: " + player1.Dodge);
             Console.WriteLine("Your Intellect: " + player1.Intellect + "\n");
@@ -110,10 +112,12 @@ namespace Class_Practice1
                     break;
                 case 2:
                     player1.Gear += 3;
+                    player1.Dodge += 1;
                     Console.WriteLine("Rogue it is...");
                     break;
                 case 3:
-                    player1.Gear = 0;
+                    player1.Gear = 1;
+                    player1.Dodge += 1;
                     Console.WriteLine("Mage it is...");
                     break;
                 default:
@@ -124,8 +128,10 @@ namespace Class_Practice1
             }
             Console.WriteLine(player1.PlayerName + "'s stats: ");
             Console.WriteLine("Your Health: " + player1.Health);
-            Console.WriteLine("Your Armor: " + player1.Block);
-            Console.WriteLine("Your Parry: " + player1.Parry);
+            Console.WriteLine("Your Armor(Min): " + player1.MinBlock);
+            Console.WriteLine("Your Armor(Max): " + player1.MaxBlock);
+            Console.WriteLine("Your Parry(Min): " + player1.MinParry);
+            Console.WriteLine("your Parry(Max): " + player1.MaxParry);
             Console.WriteLine("Gear Armor: " + player1.Gear);
             Console.WriteLine("Your Strength: " + player1.Strength);
             Console.WriteLine("Your Dodge: " + player1.Dodge);
