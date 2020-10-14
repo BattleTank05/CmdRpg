@@ -17,7 +17,7 @@ namespace The_Dragon_Lair_SoloRPG.Maps
             Console.Clear();
             Part1(monsters, player1, spaceIcon);
         }
-        public static void Part1(Monster[] monsters, Player player1, string spaceIcon) 
+        public static void Part1(Monster[] monsters, Player player1, string spaceIcon)
         {
             Section1(monsters, player1, spaceIcon);
         }
