@@ -36,8 +36,7 @@ namespace The_Dragon_Lair_SoloRPG
                 return;
             }
             Render code = new Render();
-            int defeatedMonsters = 0;
-            for (int i = 0; i < monsters.Count; i++) 
+            for (int i = 0; i < monsters.Count - 1; i++) 
             {
                 if (monsters[i] != null) 
                 {
@@ -60,7 +59,6 @@ namespace The_Dragon_Lair_SoloRPG
                             Console.WriteLine(monsters[i].Name + " has been defeated...");
                             monsters.Remove(monsters[i]);
                         }
-                        defeatedMonsters += 1;
                     }
                 }
             }
@@ -70,13 +68,11 @@ namespace The_Dragon_Lair_SoloRPG
             Program code = new Program();
             if (isDebuggerFight == false)
             {
-                    if (monsters.Count != 0)
+                    if (monsters.Count == 0)
                     {
-                        return;
+                    Program.ColorWriter(ConsoleColor.Green, "You Win!");
+                    code.LootPhase(player1, monsters, GetRandom(1, monsters.Capacity + player1.level));
                     }
-                
-                Program.ColorWriter(ConsoleColor.Green, "You Win!");
-                code.LootPhase(player1, monsters, GetRandom(1, monsters.Capacity + player1.level));
             }
             else if (isDebuggerFight == true)
             {

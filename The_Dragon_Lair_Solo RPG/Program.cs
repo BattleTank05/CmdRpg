@@ -279,23 +279,13 @@ namespace The_Dragon_Lair_SoloRPG
                     {
                         classActions3.RogueActions(player1, monsters);
                     }
-                    int defeatedMonsters = 0;
-                    for (int i = 0; i < monsters.Count; i++)
-                    {
-                        if (monsters[i] == null)
-                        {
-                            defeatedMonsters += 1;
-                        }
-                    }
-                    if (defeatedMonsters == monsters.Count)
+                    if (monsters.Count == 0)
                     {
                         Console.WriteLine("All monsters defeated!");
                         LootPhase(player1, monsters, GetRandom(1, 5) + monsters.Capacity + player1.level);
                     }
-                    else
-                        defeatedMonsters = 0;
                 }
-                for (int i = 0; i < monsters.Count; i++)
+                for (int i = 0; i < monsters.Count - 1; i++)
                 {
                     if (monsters[i] != null)
                     {
@@ -306,7 +296,7 @@ namespace The_Dragon_Lair_SoloRPG
                         if (monsters[i].Health <= 0)
                         {
                             Console.WriteLine(monsters[i].Name + " has been defeated...");
-                            monsters[i] = null;
+                            monsters.Remove(monsters[i]);
                         }
                     }
                 }

@@ -211,16 +211,16 @@ namespace The_Dragon_Lair_SoloRPG
                 {
                     if (actualInput == player1.posX && actualInput1 == player1.posY)
                     {
-                        player1.Health = monster.MonsterAttack(player1, monster);
+                        player1.Health = monster.MonsterAttack(player1, monster, monsters);
                     }
                 }
                 else
                 {
-                    for (int i = 0; i < monsters.Capacity; i++)
+                    for (int i = 0; i < monsters.Count; i++)
                     {
                         if (entity.posX == monsters[i].posX && entity.posY == monsters[i].posY)
                         {
-                            entity.Health = monster.MonsterAttack(entity, monster);
+                            entity.Health = monster.MonsterAttack(entity, monster, monsters);
                             return;
                         }
                     }
@@ -230,13 +230,15 @@ namespace The_Dragon_Lair_SoloRPG
             }
             if (map.mapName == "Base_Map") 
             {
-                if (entity.posX <= 0 || entity.posY <= 0)
+                int tries = 3;
+                while (entity.posX <= 0 || entity.posY <= 0 || entity.posX > Basic_Map.lengthX || entity.posY > Basic_Map.lengthY && tries > 0)
                 {
                     Move(entity, map, monsters, player1, monster);
-                }
-                else if (entity.posX > Basic_Map.lengthX || entity.posY > Basic_Map.lengthY) 
-                {
-                    Move(entity, map, monsters, player1, monster);
+                    tries -= 1;
+                    if (tries == 0) 
+                    {
+                        return;
+                    }
                 }
                 Basic_Map.Build(monsters, player1, "~");
             }
@@ -245,14 +247,6 @@ namespace The_Dragon_Lair_SoloRPG
         {
             Random r = new Random();
             return r.Next(min, max);
-        }
-        static void Stuff() 
-        {
-            List<Potion> stuffers = new List<Potion>();
-            for (int i = 0; i < stuffers.Count; i++) 
-            {
-                Console.WriteLine(stuffers[i]);
-            }
         }
     }
 }

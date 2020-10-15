@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using System.Threading;
+using System.IO.MemoryMappedFiles;
 
 namespace The_Dragon_Lair_SoloRPG
 {
@@ -39,7 +40,7 @@ namespace The_Dragon_Lair_SoloRPG
                         isTargetPlayer = GetRandom(1, 3);
                         if (isTargetPlayer == 2 && player1.posX == this.posX + 1 || player1.posX == this.posX - 1 || player1.posX == this.posX && player1.posY == this.posY + 1 || player1.posY == this.posY - 1 || player1.posY == this.posY)
                         {
-                            player1.Health = start.MonsterAttack(player1, monster);
+                            player1.Health = start.MonsterAttack(player1, monster, monsters);
                         }
                         else 
                         {
@@ -50,7 +51,7 @@ namespace The_Dragon_Lair_SoloRPG
                     {
                         if (monsters[whichTarget].posX == this.posX + 1 || monsters[whichTarget].posX == this.posX - 1 || monsters[whichTarget].posX == this.posX && monsters[whichTarget].posY == this.posY + 1 || monsters[whichTarget].posY == this.posY - 1 || monsters[whichTarget].posY == this.posY) 
                         {
-                            monsters[whichTarget].Health = start.MonsterAttack(monsters[whichTarget], monster);
+                            monsters[whichTarget].Health = start.MonsterAttack(monsters[whichTarget], monster, monsters);
                         }
                     }
                     break;
@@ -60,7 +61,7 @@ namespace The_Dragon_Lair_SoloRPG
                         isTargetPlayer = GetRandom(1, 3);
                         if (isTargetPlayer == 2 && player1.posX == this.posX + 1 || player1.posX == this.posX - 1 || player1.posX == this.posX && player1.posY == this.posY + 1 || player1.posY == this.posY - 1 || player1.posY == this.posY)
                         {
-                            player1.Health = start.MonsterAttack(player1, monster);
+                            player1.Health = start.MonsterAttack(player1, monster, monsters);
                         }
                         else
                         {
@@ -71,7 +72,7 @@ namespace The_Dragon_Lair_SoloRPG
                     {
                         if (monsters[whichTarget].posX == this.posX + 1 || monsters[whichTarget].posX == this.posX - 1 || monsters[whichTarget].posX == this.posX && monsters[whichTarget].posY == this.posY + 1 || monsters[whichTarget].posY == this.posY - 1 || monsters[whichTarget].posY == this.posY)
                         {
-                            monsters[whichTarget].Health = start.MonsterAttack(monsters[whichTarget], monster);
+                            monsters[whichTarget].Health = start.MonsterAttack(monsters[whichTarget], monster, monsters);
                         }
                     }
                     break;
@@ -88,7 +89,7 @@ namespace The_Dragon_Lair_SoloRPG
                         isTargetPlayer = GetRandom(1, 3);
                         if (isTargetPlayer == 2 && player1.posX == this.posX + 1 || player1.posX == this.posX - 1 || player1.posX == this.posX && player1.posY == this.posY + 1 || player1.posY == this.posY - 1 || player1.posY == this.posY)
                         {
-                            player1.Health = start.MonsterAttack(player1, monster);
+                            player1.Health = start.MonsterAttack(player1, monster, monsters);
                         }
                         else
                         {
@@ -99,7 +100,7 @@ namespace The_Dragon_Lair_SoloRPG
                     {
                         if (monsters[whichTarget].posX == this.posX + 1 || monsters[whichTarget].posX == this.posX - 1 || monsters[whichTarget].posX == this.posX && monsters[whichTarget].posY == this.posY + 1 || monsters[whichTarget].posY == this.posY - 1 || monsters[whichTarget].posY == this.posY)
                         {
-                            monsters[whichTarget].Health = start.MonsterAttack(monsters[whichTarget], monster);
+                            monsters[whichTarget].Health = start.MonsterAttack(monsters[whichTarget], monster, monsters);
                         }
                     }
                     break;
@@ -109,7 +110,7 @@ namespace The_Dragon_Lair_SoloRPG
                         isTargetPlayer = GetRandom(1, 3);
                         if (isTargetPlayer == 2 && player1.posX == this.posX + 1 || player1.posX == this.posX - 1 || player1.posX == this.posX && player1.posY == this.posY + 1 || player1.posY == this.posY - 1 || player1.posY == this.posY)
                         {
-                            player1.Health = start.MonsterAttack(player1, monster);
+                            player1.Health = start.MonsterAttack(player1, monster, monsters);
                         }
                         else
                         {
@@ -120,7 +121,7 @@ namespace The_Dragon_Lair_SoloRPG
                     {
                         if (monsters[whichTarget].posX == this.posX + 1 || monsters[whichTarget].posX == this.posX - 1 || monsters[whichTarget].posX == this.posX && monsters[whichTarget].posY == this.posY + 1 || monsters[whichTarget].posY == this.posY - 1 || monsters[whichTarget].posY == this.posY)
                         {
-                            monsters[whichTarget].Health = start.MonsterAttack(monsters[whichTarget], monster);
+                            monsters[whichTarget].Health = start.MonsterAttack(monsters[whichTarget], monster, monsters);
                         }
                     }
                     break;
@@ -130,7 +131,7 @@ namespace The_Dragon_Lair_SoloRPG
                         isTargetPlayer = GetRandom(1, 3);
                         if (isTargetPlayer == 2 && player1.posX == this.posX + 1 || player1.posX == this.posX - 1 || player1.posX == this.posX && player1.posY == this.posY + 1 || player1.posY == this.posY - 1 || player1.posY == this.posY)
                         {
-                            player1.Health = start.MonsterAttack(player1, monster);
+                            player1.Health = start.MonsterAttack(player1, monster, monsters);
                         }
                         else
                         {
@@ -141,7 +142,7 @@ namespace The_Dragon_Lair_SoloRPG
                     {
                         if (monsters[whichTarget].posX == this.posX + 1 || monsters[whichTarget].posX == this.posX - 1 || monsters[whichTarget].posX == this.posX && monsters[whichTarget].posY == this.posY + 1 || monsters[whichTarget].posY == this.posY - 1 || monsters[whichTarget].posY == this.posY)
                         {
-                            monsters[whichTarget].Health = start.MonsterAttack(monsters[whichTarget], monster);
+                            monsters[whichTarget].Health = start.MonsterAttack(monsters[whichTarget], monster, monsters);
                         }
                     }
                     break;
@@ -151,7 +152,7 @@ namespace The_Dragon_Lair_SoloRPG
                         isTargetPlayer = GetRandom(1, 3);
                         if (isTargetPlayer == 2 && player1.posX == this.posX + 1 || player1.posX == this.posX - 1 || player1.posX == this.posX && player1.posY == this.posY + 1 || player1.posY == this.posY - 1 || player1.posY == this.posY)
                         {
-                            player1.Health = start.MonsterAttack(player1, monster);
+                            player1.Health = start.MonsterAttack(player1, monster, monsters);
                         }
                         else
                         {
@@ -162,7 +163,7 @@ namespace The_Dragon_Lair_SoloRPG
                     {
                         if (monsters[whichTarget].posX == this.posX + 1 || monsters[whichTarget].posX == this.posX - 1 || monsters[whichTarget].posX == this.posX && monsters[whichTarget].posY == this.posY + 1 || monsters[whichTarget].posY == this.posY - 1 || monsters[whichTarget].posY == this.posY)
                         {
-                            monsters[whichTarget].Health = start.MonsterAttack(monsters[whichTarget], monster);
+                            monsters[whichTarget].Health = start.MonsterAttack(monsters[whichTarget], monster, monsters);
                         }
                     }
                     break;
@@ -175,7 +176,7 @@ namespace The_Dragon_Lair_SoloRPG
             }
             //Thread.Sleep(5000);
         }
-        public int MonsterAttack(Entity entity, Monster monster)
+        public int MonsterAttack(Entity entity, Monster monster, List<Monster> monsters)
         {
             #region monsterAttackAndClassVariables
             Render array = new Render();
@@ -264,9 +265,16 @@ namespace The_Dragon_Lair_SoloRPG
             entity.Health -= monsterDamage;
             Console.WriteLine( entity.Name + "'s Health: " + entity.Health + "\n");
 
-            if (entity.Health < 1)
+            if (entity.Health < 0)
             {
                 Console.WriteLine( entity.Name + " Has been defeated...\n");
+                for (int i = 0; i < monsters.Count; i++) 
+                {
+                    if (monsters[i] == entity) 
+                    {
+                        monsters.Remove(monsters[i]);
+                    }
+                }
             }
 
             monster.EntityWeapon.weaponDurability -= 1;
