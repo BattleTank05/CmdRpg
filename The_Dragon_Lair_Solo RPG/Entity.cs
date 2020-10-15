@@ -125,7 +125,7 @@ namespace The_Dragon_Lair_SoloRPG
         //    Potion code = new Potion("", 0);
         //    return code;
         //}
-        public void Move(Entity entity, Map map, Monster[] monsters, Player player1) 
+        public void Move(Entity entity, Map map, List<Monster> monsters, Player player1, Monster monster) 
         {
             if (entity == player1)
             {
@@ -139,7 +139,7 @@ namespace The_Dragon_Lair_SoloRPG
                 }
                 catch
                 {
-                    Move(entity, map, monsters, player1);
+                    Move(entity, map, monsters, player1, monster);
                 }
                 Console.Write("Enter PosY: ");
                 string input1 = Console.ReadLine();
@@ -149,23 +149,82 @@ namespace The_Dragon_Lair_SoloRPG
                 }
                 catch
                 {
-                    Move(entity, map, monsters, player1);
+                    Move(entity, map, monsters, player1, monster);
                 }
                 if (actualInput1 == entity.posY + 1 || actualInput1 == entity.posY - 1 || actualInput1 == entity.posY && actualInput == entity.posX + 1 || actualInput == entity.posX - 1 || actualInput == entity.posX)
                 {
+                    for (int i = 0; i < monsters.Count; i++) 
+                    {
+                        if (monsters[i] != null) 
+                        {
+                            if (entity.posX == monsters[i].posX && entity.posY == monsters[i].posY)
+                            {
+                                Console.Write("Are you sure you want to attack " + monsters[i].Name + "?");
+                                string input2 = Console.ReadLine();
+                                if (input2 == "y" || input2 == "yes")
+                                {
+                                    Console.WriteLine("Which Weapon do you want to use?\n");
+                                    Console.WriteLine("1) Slot 1: " + player1.EntityWeapon.name + " weapon level: " + player1.EntityWeapon.weaponlevel + " weapon damage: " + player1.EntityWeapon.weaponDamage);
+                                    Console.WriteLine("2) Slot 2: " + player1.PlayerWeapon2.name + " weapon level: " + player1.PlayerWeapon2.weaponlevel + " weapon damage: " + player1.PlayerWeapon2.weaponDamage);
+                                    int playerAnswer = 0;
+                                    string playerInput = Console.ReadLine();
+                                    try
+                                    {
+                                        playerAnswer = Int32.Parse(playerInput);
+                                    }
+                                    catch
+                                    {
+                                        Move(entity, map, monsters, player1, monster);
+                                    }
+                                    if (playerAnswer == 1)
+                                    {
+                                        monsters[i].Health = player1.PlayerAttack(monsters[i], player1, player1.EntityWeapon);
+                                        return;
+                                    }
+                                    else if (playerAnswer == 2)
+                                    {
+                                        monsters[i].Health = player1.PlayerAttack(monsters[i], player1, player1.PlayerWeapon2);
+                                        return;
+                                    }
+                                }
+                                else
+                                {
+                                    Move(entity, map, monsters, player1, monster);
+                                }
+                            }
+                        }
+                    }                    
                     entity.posY = actualInput1;
                     entity.posX = actualInput;
                 }
                 else
                 {
                     Console.WriteLine("Invalid Coordiantes!");
-                    Move(entity, map, monsters, player1);
+                    Move(entity, map, monsters, player1, monster);
                 }
             }
             else 
             {
                 int actualInput = GetRandom(entity.posX - 1, entity.posX + 2);
                 int actualInput1 = GetRandom(entity.posY - 1, entity.posY + 2);
+                if (player1 != null) 
+                {
+                    if (actualInput == player1.posX && actualInput1 == player1.posY)
+                    {
+                        player1.Health = monster.MonsterAttack(player1, monster);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < monsters.Capacity; i++)
+                    {
+                        if (entity.posX == monsters[i].posX && entity.posY == monsters[i].posY)
+                        {
+                            entity.Health = monster.MonsterAttack(entity, monster);
+                            return;
+                        }
+                    }
+                }
                 entity.posX = actualInput;
                 entity.posY = actualInput1;
             }
@@ -173,11 +232,11 @@ namespace The_Dragon_Lair_SoloRPG
             {
                 if (entity.posX <= 0 || entity.posY <= 0)
                 {
-                    Move(entity, map, monsters, player1);
+                    Move(entity, map, monsters, player1, monster);
                 }
                 else if (entity.posX > Basic_Map.lengthX || entity.posY > Basic_Map.lengthY) 
                 {
-                    Move(entity, map, monsters, player1);
+                    Move(entity, map, monsters, player1, monster);
                 }
                 Basic_Map.Build(monsters, player1, "~");
             }
@@ -187,6 +246,13 @@ namespace The_Dragon_Lair_SoloRPG
             Random r = new Random();
             return r.Next(min, max);
         }
-
+        static void Stuff() 
+        {
+            List<Potion> stuffers = new List<Potion>();
+            for (int i = 0; i < stuffers.Count; i++) 
+            {
+                Console.WriteLine(stuffers[i]);
+            }
+        }
     }
 }

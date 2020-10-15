@@ -47,7 +47,7 @@ namespace The_Dragon_Lair_SoloRPG
         }
         public void RenderPlayerActionsShorthand(Player player1) 
         {
-            string[] playerShorthandActions = { "Your Health: " + player1.Health, "What would you like to do?\n", "1) Attack = " + player1.EntityWeapon.weaponDamage + " Damage x" + player1.EntityWeapon.weaponAttackAmount + " + Strength (" + player1.Strength + ")", "2) Defend = " + player1.EntityArmor.armorProtectionAmount + " Block x1", "3) Parry = " + player1.EntityWeapon.weaponParry + " Parry x1", "4) Heal = 1-10 Heal x1", "5) Dodge = " + player1.MinDodge + "-" + player1.MaxDodge + " Dodge x1", "'Stats'" };
+            string[] playerShorthandActions = { "Your Health: " + player1.Health, "What would you like to do?\n", "1) Attack = " + player1.EntityWeapon.weaponDamage + " Damage x" + player1.EntityWeapon.weaponAttackAmount + " + Strength (" + player1.Strength + ")", "2) Defend = " + player1.EntityArmor.armorProtectionAmount + " Block x1", "3) Parry = " + player1.EntityWeapon.weaponParry + " Parry x1", "4) Heal = 1-10 Heal x1", "5) Dodge = " + player1.MinDodge + "-" + player1.MaxDodge + " Dodge x1", "6) Move = 1 space", "'Stats'" };
             for (int i = 0; i < playerShorthandActions.Length; i++)
             {
                 Console.WriteLine(value: playerShorthandActions[i]);

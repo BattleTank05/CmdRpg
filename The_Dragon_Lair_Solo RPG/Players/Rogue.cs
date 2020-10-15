@@ -1,16 +1,16 @@
 ﻿using System;
+using System.Threading;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading;
 
 namespace The_Dragon_Lair_SoloRPG.Players
 {
-    class Mage : Player
+    public class Rogue : Player
     {
-        public Mage (string playerName, int positionX, int positionY, string entityMapIcon) : base(playerName, positionX, positionY, entityMapIcon)
+        public Rogue(string playerName, int positionX, int positionY, string entityMapIcon) : base(playerName, positionX, positionY, entityMapIcon)
         {
         }
-        public void MageActions(Player player1, Monster[] monsters)
+        public void RogueActions(Player player1, List<Monster> monsters)
         {
             Thread.Sleep(1000);
             Program code = new Program();
@@ -18,11 +18,11 @@ namespace The_Dragon_Lair_SoloRPG.Players
             array.RenderPlayerActionsShorthand(player1);
             if (player1.level == 1)
             {
-                Console.WriteLine("6) Huge Fireball = 10-15 Fiery Damage + " + " Intellect: " + player1.Intellect);
+                Console.WriteLine("6) Double Strike: attack twice");
             }
-            string input = Console.ReadLine();
-            int playerAnswer = 0;
             string playerInput;
+            int playerAnswer = 0;
+            string input = Console.ReadLine();
             switch (input)
             {
                 case "1":
@@ -36,13 +36,13 @@ namespace The_Dragon_Lair_SoloRPG.Players
                     }
                     catch
                     {
-                        MageActions(player1, monsters);
+                        RogueActions(player1, monsters);
                     }
                     if (playerAnswer == 1)
                     {
                         int monsterList = 1;
                         Console.WriteLine("Which Foe?\n");
-                        for (int i = 0; i < monsters.Length; i++)
+                        for (int i = 0; i < monsters.Capacity; i++)
                         {
                             if (monsters[i] != null)
                             {
@@ -61,7 +61,7 @@ namespace The_Dragon_Lair_SoloRPG.Players
                         }
                         catch
                         {
-                            MageActions(player1, monsters);
+                            RogueActions(player1, monsters);
                         }
                         switch (playerAnswer2)
                         {
@@ -106,7 +106,7 @@ namespace The_Dragon_Lair_SoloRPG.Players
                     {
                         int monsterList = 1;
                         Console.WriteLine("Which Foe?\n");
-                        for (int i = 0; i < monsters.Length; i++)
+                        for (int i = 0; i < monsters.Capacity; i++)
                         {
                             if (monsters[i] != null)
                             {
@@ -125,7 +125,7 @@ namespace The_Dragon_Lair_SoloRPG.Players
                         }
                         catch
                         {
-                            MageActions(player1, monsters);
+                            RogueActions(player1, monsters);
                         }
                         switch (playerAnswer2)
                         {
@@ -167,7 +167,7 @@ namespace The_Dragon_Lair_SoloRPG.Players
                         }
                     }
                     else
-                        MageActions(player1, monsters);
+                        RogueActions(player1, monsters);
                     Thread.Sleep(500);
                     break;
                 case "2":
@@ -176,7 +176,7 @@ namespace The_Dragon_Lair_SoloRPG.Players
                     break;
                 case "3":
                     Console.WriteLine("Which Weapon do you want to use to Parry?\n");
-                    Console.WriteLine("1) Slot 1: " + player1.EntityWeapon.name + " weapon level: " + player1.EntityWeapon.weaponlevel + " weapon damage: " + player1.EntityWeapon.weaponDamage);
+                    Console.WriteLine("1) Slot 1: " + player1.EntityWeapon.name + " weapon level: " + player1.EntityWeapon.weaponlevel + " weapon parry: " + player1.EntityWeapon.weaponParry);
                     Console.WriteLine("2) Slot 2: " + player1.PlayerWeapon2.name + " weapon level: " + player1.PlayerWeapon2.weaponlevel + " weapon parry: " + player1.PlayerWeapon2.weaponParry);
                     playerInput = Console.ReadLine();
                     try
@@ -185,7 +185,7 @@ namespace The_Dragon_Lair_SoloRPG.Players
                     }
                     catch
                     {
-                        MageActions(player1, monsters);
+                        RogueActions(player1, monsters);
                     }
                     if (playerAnswer == 1)
                     {
@@ -198,7 +198,7 @@ namespace The_Dragon_Lair_SoloRPG.Players
                         return;
                     }
                     else
-                        MageActions(player1, monsters);
+                        RogueActions(player1, monsters);
                     Thread.Sleep(500);
                     break;
                 case "4":
@@ -221,7 +221,7 @@ namespace The_Dragon_Lair_SoloRPG.Players
                     }
                     if (statsType == "2")
                     {
-                        for (int i = 0; i < monsters.Length; i++)
+                        for (int i = 0; i < monsters.Capacity; i++)
                         {
                             array.RenderMonsterStats(monsters[i]);
                         }
@@ -230,14 +230,14 @@ namespace The_Dragon_Lair_SoloRPG.Players
                     {
                         array.RenderPlayerGearStats(player1);
                     }
-                    MageActions(player1, monsters);
+                    RogueActions(player1, monsters);
                     break;
                 case "6":
                     if (player1.level >= 1)
                     {
                         int monsterList = 1;
                         Console.WriteLine("Which Foe?\n");
-                        for (int i = 0; i < monsters.Length; i++)
+                        for (int i = 0; i < monsters.Capacity; i++)
                         {
                             if (monsters[i] != null)
                             {
@@ -256,58 +256,57 @@ namespace The_Dragon_Lair_SoloRPG.Players
                         }
                         catch
                         {
-                            MageActions(player1, monsters);
+                            RogueActions(player1, monsters);
                         }
                         switch (playerAnswer2)
                         {
                             case 1:
                                 if (monsters[0] != null)
                                 {
-                                    monsters[0].Health = Huge_Fireball(player1, monsters[0]);
+                                    Double_Strike(player1, monsters[0]);
                                     return;
                                 }
                                 break;
                             case 2:
                                 if (monsters[1] != null)
                                 {
-                                    monsters[1].Health = Huge_Fireball(player1, monsters[1]);
+                                    Double_Strike(player1, monsters[1]);
                                     return;
                                 }
                                 break;
                             case 3:
                                 if (monsters[2] != null)
                                 {
-                                    monsters[2].Health = Huge_Fireball(player1, monsters[2]);
+                                    Double_Strike(player1, monsters[2]);
                                     return;
                                 }
                                 break;
                             case 4:
                                 if (monsters[3] != null)
                                 {
-                                    monsters[3].Health = Huge_Fireball(player1, monsters[3]);
+                                    Double_Strike(player1, monsters[3]);
                                     return;
                                 }
                                 break;
                             case 5:
                                 if (monsters[4] != null)
                                 {
-                                    monsters[4].Health = Huge_Fireball(player1, monsters[4]);
+                                    Double_Strike(player1, monsters[4]);
                                     return;
                                 }
                                 break;
                         }
                     }
                     else
-                        MageActions(player1, monsters);
+                        RogueActions(player1, monsters);
                     break;
                 case "see inventory":
-                    //array.RenderPlayerInventory(inventory.playerInventory);
                     break;
                 default:
-                    MageActions(player1, monsters);
+                    RogueActions(player1, monsters);
                     break;
             }
-            for (int i = 0; i < monsters.Length; i++)
+            for (int i = 0; i < monsters.Capacity; i++)
             {
                 if (monsters[i].Health <= 0)
                 {
@@ -325,19 +324,60 @@ namespace The_Dragon_Lair_SoloRPG.Players
             }
             return;
         }
-        public int Huge_Fireball(Player player1, Monster monster)
+        public void Double_Strike(Player player1, Monster monster)
         {
-            int playerdamage1 = GetRandom(10, 15);
-            Console.WriteLine("you deal " + playerdamage1 + " damage");
-            monster.Health = monster.Health - playerdamage1 + player1.Intellect;
-            monster.monsterOnFire = GetRandom(0, 5);
-            Console.WriteLine("you inflict " + monster.monsterOnFire + " fire");
-            return monster.Health;
-        }
-        static int GetRandom(int min, int max)
-        {
-            Random r = new Random();
-            return r.Next(min, max);
+            string playerInput;
+            int playerAnswer = 0;
+            player1.EntityWeapon.weaponDamage += 1;
+            Console.WriteLine("Which Weapon do you want to use?\n");
+            Console.WriteLine("1) Slot 1: " + player1.EntityWeapon.name + " weapon level: " + player1.EntityWeapon.weaponlevel + " weapon damage: " + player1.EntityWeapon.weaponDamage);
+            Console.WriteLine("2) Slot 2: " + player1.PlayerWeapon2.name + " weapon level: " + player1.PlayerWeapon2.weaponlevel + " weapon damage: " + player1.PlayerWeapon2.weaponDamage);
+            playerInput = Console.ReadLine();
+            try
+            {
+                playerAnswer = Int32.Parse(playerInput);
+            }
+            catch
+            {
+                Double_Strike(player1, monster);
+            }
+            if (playerAnswer == 1)
+            {
+                monster.Health = PlayerAttack(monster, player1, player1.EntityWeapon);
+            }
+            if (playerAnswer == 2)
+            {
+                monster.Health = PlayerAttack(monster, player1, player1.PlayerWeapon2);
+            }
+            if (playerAnswer != 1 && playerAnswer != 2)
+            {
+                Double_Strike(player1, monster);
+            }
+            Console.WriteLine("(attack 2)Which Weapon do you want to use?\n");
+            Console.WriteLine("1) Slot 1: " + player1.EntityWeapon.name + " weapon level: " + player1.EntityWeapon.weaponlevel + " weapon damage: " + player1.EntityWeapon.weaponDamage);
+            Console.WriteLine("2) Slot 2: " + player1.PlayerWeapon2.name + " weapon level: " + player1.PlayerWeapon2.weaponlevel + " weapon damage: " + player1.PlayerWeapon2.weaponDamage);
+            playerInput = Console.ReadLine();
+            try
+            {
+                playerAnswer = Int32.Parse(playerInput);
+            }
+            catch
+            {
+                Double_Strike(player1, monster);
+            }
+            if (playerAnswer == 1)
+            {
+                monster.Health = PlayerAttack(monster, player1, player1.EntityWeapon);
+                return;
+            }
+            if (playerAnswer == 2)
+            {
+                monster.Health = PlayerAttack(monster, player1, player1.PlayerWeapon2);
+                return;
+            }
+            else
+                Double_Strike(player1, monster);
+            Thread.Sleep(500);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace The_Dragon_Lair_SoloRPG.Players
         public Warrior(string playerName, int positionX, int positionY, string entityMapIcon) : base(playerName, positionX, positionY, entityMapIcon)
         {
         }
-        public void WarriorActions(Player player1, Monster[] monsters)
+        public void WarriorActions(Player player1, List<Monster> monsters)
         {
             Thread.Sleep(1000);
             Program code = new Program();
@@ -21,7 +21,7 @@ namespace The_Dragon_Lair_SoloRPG.Players
             array.RenderPlayerActionsShorthand(player1);
             if (player1.level == 1)
             {
-                Console.WriteLine("6) Colossal Smash = 10 - 20 Damage + strength");
+                Console.WriteLine("7) Colossal Smash = 10 - 20 Damage + strength");
             }
             //if (player1.entityPotions != null) 
             //{
@@ -37,152 +37,169 @@ namespace The_Dragon_Lair_SoloRPG.Players
             switch (input)
             {
                 case "1":
-                    Console.WriteLine("Which Weapon do you want to use?\n");
-                    Console.WriteLine("1) Slot 1: " + player1.EntityWeapon.name + " weapon level: " + player1.EntityWeapon.weaponlevel + " weapon damage: " + player1.EntityWeapon.weaponDamage);
-                    Console.WriteLine("2) Slot 2: " + player1.PlayerWeapon2.name + " weapon level: " + player1.PlayerWeapon2.weaponlevel + " weapon damage: " + player1.PlayerWeapon2.weaponDamage);
-                    playerInput = Console.ReadLine();
-                    try
+                    if (monsters.Count > 1)
+                    for (int i = 0; i < monsters.Count; i++) 
                     {
-                        playerAnswer = Int32.Parse(playerInput);
-                    }
-                    catch
-                    {
-                        WarriorActions(player1, monsters);
-                    }
-                    if (playerAnswer == 1)
-                    {
-                        int monsterList = 1;
-                        Console.WriteLine("Which Foe?\n");
-                        for (int i = 0; i < monsters.Length; i++)
+                        if (monsters[i].posX == player1.posX || monsters[i].posX == player1.posX + 1 || monsters[i].posX == player1.posX - 1 && monsters[i].posY == player1.posY || monsters[i].posY == player1.posY + 1 || monsters[i].posY == player1.posY - 1)
                         {
-                            if (monsters[i] == null)
+                                if (monsters.Count == 1) 
+                                {
+                                    Console.WriteLine("You Win");
+                                    code.LootPhase(player1, monsters, GetRandom(1, 10));
+                                }
+                            Console.WriteLine("Which Weapon do you want to use?\n");
+                            Console.WriteLine("1) Slot 1: " + player1.EntityWeapon.name + " weapon level: " + player1.EntityWeapon.weaponlevel + " weapon damage: " + player1.EntityWeapon.weaponDamage);
+                            Console.WriteLine("2) Slot 2: " + player1.PlayerWeapon2.name + " weapon level: " + player1.PlayerWeapon2.weaponlevel + " weapon damage: " + player1.PlayerWeapon2.weaponDamage);
+                            playerInput = Console.ReadLine();
+                            try
                             {
-                                Console.WriteLine("(Defeated Monster)");
+                                playerAnswer = Int32.Parse(playerInput);
                             }
-                            else if (monsters[i].Health > 0)
+                            catch
                             {
-                                Console.WriteLine(monsterList + ") " + monsters[i].Name);
-                                monsterList += 1;
+                                WarriorActions(player1, monsters);
+                            }
+                            if (playerAnswer == 1)
+                            {
+                                int monsterList = 1;
+                                Console.WriteLine("Which Foe?\n");
+                                for (int i1 = 0; i1 < monsters.Count; i1++)
+                                {
+                                    if (monsters[i1] == null)
+                                    {
+                                        Console.WriteLine("(Defeated Monster)");
+                                    }
+                                    else if (monsters[i1].Health > 0 && monsters[i1].posX == player1.posX || monsters[i1].posX == player1.posX + 1 || monsters[i1].posX == player1.posX - 1 && monsters[i1].posY == player1.posY || monsters[i1].posY == player1.posY + 1 || monsters[i1].posY == player1.posY - 1)
+                                    {
+                                        Console.WriteLine(monsterList + ") " + monsters[i1].Name);
+                                        monsterList += 1;
+                                    }
+                                }
+                                int playerAnswer2 = 0;
+                                string playerInput2 = Console.ReadLine();
+                                try
+                                {
+                                    playerAnswer2 = Int32.Parse(playerInput2);
+                                }
+                                catch
+                                {
+                                    WarriorActions(player1, monsters);
+                                }
+                                switch (playerAnswer2)
+                                {
+                                    case 1:
+                                        if (monsters[0] != null)
+                                        {
+                                            monsters[0].Health = player1.PlayerAttack(monsters[0], player1, player1.EntityWeapon);
+                                            return;
+                                        }
+                                        break;
+                                    case 2:
+                                        if (monsters[1] != null)
+                                        {
+                                            monsters[1].Health = player1.PlayerAttack(monsters[1], player1, player1.EntityWeapon);
+                                            return;
+                                        }
+                                        break;
+                                    case 3:
+                                        if (monsters[2] != null)
+                                        {
+                                            monsters[2].Health = player1.PlayerAttack(monsters[2], player1, player1.EntityWeapon);
+                                            return;
+                                        }
+                                        break;
+                                    case 4:
+                                        if (monsters[3] != null)
+                                        {
+                                            monsters[3].Health = player1.PlayerAttack(monsters[3], player1, player1.EntityWeapon);
+                                            return;
+                                        }
+                                        break;
+                                    case 5:
+                                        if (monsters[4] != null)
+                                        {
+                                            monsters[4].Health = player1.PlayerAttack(monsters[4], player1, player1.EntityWeapon);
+                                            return;
+                                        }
+                                        break;
+                                }
+                            }
+                            else if (playerAnswer == 2)
+                            {
+                                int monsterList = 1;
+                                Console.WriteLine("Which Foe?\n");
+                                for (int i2 = 0; i2 < monsters.Count; i2++)
+                                {
+                                    if (monsters[i2] != null)
+                                    {
+                                        if (monsters[i2].Health > 0)
+                                        {
+                                            Console.WriteLine(monsterList + ") " + monsters[i2].Name);
+                                            monsterList += 1;
+                                        }
+                                    }
+                                }
+                                int playerAnswer2 = 0;
+                                string playerInput2 = Console.ReadLine();
+                                try
+                                {
+                                    playerAnswer2 = Int32.Parse(playerInput2);
+                                }
+                                catch
+                                {
+                                    WarriorActions(player1, monsters);
+                                }
+                                switch (playerAnswer2)
+                                {
+                                    case 1:
+                                        if (monsters[0] != null)
+                                        {
+                                            monsters[0].Health = player1.PlayerAttack(monsters[0], player1, player1.PlayerWeapon2);
+                                            return;
+                                        }
+                                        break;
+                                    case 2:
+                                        if (monsters[1] != null)
+                                        {
+                                            monsters[1].Health = player1.PlayerAttack(monsters[1], player1, player1.PlayerWeapon2);
+                                            return;
+                                        }
+                                        break;
+                                    case 3:
+                                        if (monsters[2] != null)
+                                        {
+                                            monsters[2].Health = player1.PlayerAttack(monsters[2], player1, player1.PlayerWeapon2);
+                                            return;
+                                        }
+                                        break;
+                                    case 4:
+                                        if (monsters[3] != null)
+                                        {
+                                            monsters[3].Health = player1.PlayerAttack(monsters[3], player1, player1.PlayerWeapon2);
+                                            return;
+                                        }
+                                        break;
+                                    case 5:
+                                        if (monsters[4] != null)
+                                        {
+                                            monsters[4].Health = player1.PlayerAttack(monsters[4], player1, player1.PlayerWeapon2);
+                                            return;
+                                        }
+                                        break;
+                                }
                             }
                             else
-                                return;
-                        }
-                        int playerAnswer2 = 0;
-                        string playerInput2 = Console.ReadLine();
-                        try
-                        {
-                            playerAnswer2 = Int32.Parse(playerInput2);
-                        }
-                        catch
-                        {
-                            WarriorActions(player1, monsters);
-                        }
-                        switch (playerAnswer2)
-                        {
-                            case 1:
-                                if (monsters[0] != null)
-                                {
-                                    monsters[0].Health = player1.PlayerAttack(monsters[0], player1, player1.EntityWeapon);
-                                    return;
-                                }
-                                break;
-                            case 2:
-                                if (monsters[1] != null)
-                                {
-                                    monsters[1].Health = player1.PlayerAttack(monsters[1], player1, player1.EntityWeapon);
-                                    return;
-                                }
-                                break;
-                            case 3:
-                                if (monsters[2] != null)
-                                {
-                                    monsters[2].Health = player1.PlayerAttack(monsters[2], player1, player1.EntityWeapon);
-                                    return;
-                                }
-                                break;
-                            case 4:
-                                if (monsters[3] != null)
-                                {
-                                    monsters[3].Health = player1.PlayerAttack(monsters[3], player1, player1.EntityWeapon);
-                                    return;
-                                }
-                                break;
-                            case 5:
-                                if (monsters[4] != null)
-                                {
-                                    monsters[4].Health = player1.PlayerAttack(monsters[4], player1, player1.EntityWeapon);
-                                    return;
-                                }
-                                break;
-                        }
-                    }
-                    else if (playerAnswer == 2)
-                    {
-                        int monsterList = 1;
-                        Console.WriteLine("Which Foe?\n");
-                        for (int i = 0; i < monsters.Length; i++)
-                        {
-                            if (monsters[i] != null)
                             {
-                                if (monsters[i].Health > 0)
-                                {
-                                    Console.WriteLine(monsterList + ") " + monsters[i].Name);
-                                    monsterList += 1;
-                                }
+                                WarriorActions(player1, monsters);
+                                Thread.Sleep(500);
                             }
                         }
-                        int playerAnswer2 = 0;
-                        string playerInput2 = Console.ReadLine();
-                        try
+                        else 
                         {
-                            playerAnswer2 = Int32.Parse(playerInput2);
-                        }
-                        catch
-                        {
+                            Console.WriteLine("No nearby enemies!");
                             WarriorActions(player1, monsters);
                         }
-                        switch (playerAnswer2)
-                        {
-                            case 1:
-                                if (monsters[0] != null)
-                                {
-                                    monsters[0].Health = player1.PlayerAttack(monsters[0], player1, player1.PlayerWeapon2);
-                                    return;
-                                }
-                                break;
-                            case 2:
-                                if (monsters[1] != null)
-                                {
-                                    monsters[1].Health = player1.PlayerAttack(monsters[1], player1, player1.PlayerWeapon2);
-                                    return;
-                                }
-                                break;
-                            case 3:
-                                if (monsters[2] != null)
-                                {
-                                    monsters[2].Health = player1.PlayerAttack(monsters[2], player1, player1.PlayerWeapon2);
-                                    return;
-                                }
-                                break;
-                            case 4:
-                                if (monsters[3] != null)
-                                {
-                                    monsters[3].Health = player1.PlayerAttack(monsters[3], player1, player1.PlayerWeapon2);
-                                    return;
-                                }
-                                break;
-                            case 5:
-                                if (monsters[4] != null)
-                                {
-                                    monsters[4].Health = player1.PlayerAttack(monsters[4], player1, player1.PlayerWeapon2);
-                                    return;
-                                }
-                                break;
-                        }
                     }
-                    else
-                        WarriorActions(player1, monsters);
-                    Thread.Sleep(500);
                     break;
                 case "2":
                     player1.Block = player1.Player_Defend(player1);
@@ -242,7 +259,7 @@ namespace The_Dragon_Lair_SoloRPG.Players
                     }
                     if (statsType == "2")
                     {
-                        for (int i = 0; i < monsters.Length; i++)
+                        for (int i = 0; i < monsters.Capacity; i++)
                         {
                             if (monsters[i] != null)
                             {
@@ -263,7 +280,7 @@ namespace The_Dragon_Lair_SoloRPG.Players
                     {
                         int monsterList = 1;
                         Console.WriteLine("Which Foe?\n");
-                        for (int i = 0; i < monsters.Length; i++)
+                        for (int i = 0; i < monsters.Capacity; i++)
                         {
                             if (monsters[i] != null)
                             {
@@ -330,13 +347,13 @@ namespace The_Dragon_Lair_SoloRPG.Players
                     break;
                 case "move":
                     Map map = new Map("Base_Map");
-                    Move(player1, map, monsters, player1);
+                    Move(player1, map, monsters, player1, monsters[0]);
                     break;
                 default:
                     WarriorActions(player1, monsters);
                     break;
             }
-            for (int i = 0; i < monsters.Length; i++)
+            for (int i = 0; i < monsters.Count; i++)
             {
                 if (monsters[i] != null) 
                 {

@@ -10,7 +10,7 @@ namespace The_Dragon_Lair_SoloRPG.Equipment
         {
             name = "Fists";
             weaponType = "Fists";
-            weaponDamage = 1;
+            weaponDamage = 100;
             maxWeaponDamage = 3;
             weaponDurability = 1000;
             weaponAttributePiercing = 0;

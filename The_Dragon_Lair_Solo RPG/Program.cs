@@ -10,6 +10,8 @@ using The_Dragon_Lair_SoloRPG.Monsters;
 using System.Numerics;
 using System.Reflection.Metadata.Ecma335;
 using The_Dragon_Lair_SoloRPG.Maps;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace The_Dragon_Lair_SoloRPG
 {
@@ -20,9 +22,13 @@ namespace The_Dragon_Lair_SoloRPG
         public bool isDebuggerFight;
         static void Main(string[] args)
         {
+            PlayerChooseGameMode();
+        }
+        public static void PlayerChooseGameMode() 
+        {
             Program code = new Program();
             int playerAnswer = 0;
-            Console.WriteLine("which mode?\n1) gameplay\n2) debugger");
+            Console.WriteLine("which mode?\n1) gameplay\n2) debugger\n3) Dictionary");
             string playerInput = Console.ReadLine();
             try
             {
@@ -30,6 +36,7 @@ namespace The_Dragon_Lair_SoloRPG
             }
             catch
             {
+                PlayerChooseGameMode();
             }
             if (playerAnswer == 1)
             {
@@ -50,23 +57,19 @@ namespace The_Dragon_Lair_SoloRPG
             {
                 #region DeclareDebuggerVariables
                 int howManyMonsters = GetRandom(2, 5);
+                player1 = new Player("", 5, 5, "Y");
                 MonsterFactory code1 = new MonsterFactory();
-                Monster[] monsters = new Monster[howManyMonsters];
+                List<Monster> monsters = new List<Monster>();
                 int playerHowFast = 0;
                 #endregion
 
                 while (howManyMonsters > 0)
                 {
-                    for (int i = 0; i < monsters.Length; i++)
+                    Monster monster = code1.CreateRandomMonster();
+                    if (howManyMonsters > 0)
                     {
-                        Monster monster = code1.CreateRandomMonster();
-                        if (i > 0)
-                        {
-                            monsters[i] = monster;
-                            howManyMonsters -= 1;
-                        }
-                        else
-                            monsters[i] = monster;
+                        monsters.Add(monster);
+                        howManyMonsters -= 1;
                     }
                 }
 
@@ -80,6 +83,10 @@ namespace The_Dragon_Lair_SoloRPG
                 Thread.Sleep(playerHowFast);
                 code.isDebuggerFight = true;
                 code.DebuggerFight(monsters, playerHowFast);
+            }
+            if (playerAnswer == 3)
+            {
+                Dictionary.StartUp();
             }
         }
         static void PlayerChooseLoadout()
@@ -226,34 +233,32 @@ namespace The_Dragon_Lair_SoloRPG
             Render array = new Render();
             Program code = new Program();
             MonsterFactory code1 = new MonsterFactory();
-            Monster[] monsters = new Monster[howManyMonsters];
+            List<Monster> monsters = new List<Monster>();
             #endregion
             while (howManyMonsters > 0)
             {
-                for (int i = 0; i < monsters.Length; i++)
+                Monster monster = code1.CreateRandomMonster();
+                if (monster.Name == "Grauldog, champion of the Trolls")
                 {
-                    Monster monster = code1.CreateRandomMonster();
-                    if (monster.Name == "Grauldog, champion of the Trolls")
-                    {
-                        code.isFightBossFight = true;
-                    }
-                    monsters[i] = monster;
-                    howManyMonsters -= 1;
+                    code.isFightBossFight = true;
                 }
+                monsters.Add(monster);
+                howManyMonsters -= 1;
+
             }
-            for (int i = 0; i < monsters.Length; i++)
+            for (int i = 0; i < monsters.Count; i++)
             {
                 array.RenderMonsterStats(monsters[i]);
             }
             Thread.Sleep(1000);
             code.Fight(monsters, player1);
         }
-        public void Fight(Monster[] monsters, Player player1)
+        public void Fight(List<Monster> monsters, Player player1)
         {
             #region DeclareClassVariables
-            Warrior classActions = new Warrior("", 0,0, "");
-            Mage classActions2 = new Mage("", 0,0,"");
-            Rogue classActions3 = new Rogue("", 0,0,"");
+            Warrior classActions = new Warrior("", 0, 0, "");
+            Mage classActions2 = new Mage("", 0, 0, "");
+            Rogue classActions3 = new Rogue("", 0, 0, "");
             Fight_Rounds code = new Fight_Rounds();
             #endregion
             while (player1.Health > 0 && monsters != null)
@@ -275,22 +280,22 @@ namespace The_Dragon_Lair_SoloRPG
                         classActions3.RogueActions(player1, monsters);
                     }
                     int defeatedMonsters = 0;
-                    for (int i = 0; i < monsters.Length; i++)
+                    for (int i = 0; i < monsters.Count; i++)
                     {
                         if (monsters[i] == null)
                         {
                             defeatedMonsters += 1;
                         }
                     }
-                    if (defeatedMonsters == monsters.Length)
+                    if (defeatedMonsters == monsters.Count)
                     {
                         Console.WriteLine("All monsters defeated!");
-                        LootPhase(player1, monsters, GetRandom(1, 5) + monsters.Length + player1.level);
+                        LootPhase(player1, monsters, GetRandom(1, 5) + monsters.Capacity + player1.level);
                     }
                     else
                         defeatedMonsters = 0;
                 }
-                for (int i = 0; i < monsters.Length; i++)
+                for (int i = 0; i < monsters.Count; i++)
                 {
                     if (monsters[i] != null)
                     {
@@ -317,7 +322,7 @@ namespace The_Dragon_Lair_SoloRPG
                 LootPhase(player1, monsters, GetRandom(1, 5));
             }
         }
-        public void LootPhase(Player player1, Monster[] monsters, int itemLevel)
+        public void LootPhase(Player player1, List<Monster> monsters, int itemLevel)
         {
             #region DeclareLootPhaseVariables
             ItemFactory code = new ItemFactory();
@@ -329,55 +334,50 @@ namespace The_Dragon_Lair_SoloRPG
             int playerAnswer = 0;
             #endregion
             int howMuchLoot = GetRandom(0, 3 + player1.level);
-
             while (howMuchLoot > 0)
             {
-                for (int i = 0; i < monsters.Length; i++)
-                {
-                    if (code2.isFightBossFight == true)
-                    {
-                        Console.WriteLine("Both Weapon Slots Full!");
-                        Grauldogs_Trusty_Club newWeaponForPlayer = new Grauldogs_Trusty_Club("Grauldog's Trusty Club", itemLevel);
-                        Console.WriteLine("Do you want to replace a weapon with: " + newWeaponForPlayer + " level " + itemLevel + "?\n");
-                        Console.WriteLine("Your weapon(Slot 1): " + player1.EntityWeapon.name + " level " + player1.EntityWeapon.weaponlevel);
-                        if (player1.PlayerWeapon2 != null)
-                        {
-                            Console.WriteLine("Your weapon(Slot 2): " + player1.PlayerWeapon2.name + " level " + player1.PlayerWeapon2.weaponlevel);
-                        }
-                        Console.WriteLine("1) Yes");
-                        Console.WriteLine("2) No");
-                        string playerInput = Console.ReadLine();
-                        try
-                        {
-                            playerAnswer = Int32.Parse(playerInput);
-                        }
-                        catch
-                        {
-                            LootPhase(player1, monsters, itemLevel);
-                        }
-                        if (playerAnswer == 1)
-                        {
-                            Console.WriteLine("Which Slot?");
-                            Console.WriteLine("1) Slot 1");
-                            Console.WriteLine("2) Slot 2");
-                            string playerInput1 = Console.ReadLine();
-                            try
-                            {
-                                playerAnswer = Int32.Parse(playerInput1);
-                            }
-                            catch
-                            {
-                                LootPhase(player1, monsters, itemLevel);
-                            }
-                            if (playerAnswer == 1)
-                            {
-                                player1.EntityWeapon = newWeaponForPlayer;
-                            }
-                        }
-                        player1.XP += 50;
-                    }
-                }
-
+                //if (monsters.Contains(monsters.Where(c => c.Name == "Grauldog, champion of the Trolls").Single()))
+                //{
+                //    Console.WriteLine("Both Weapon Slots Full!");
+                //    Grauldogs_Trusty_Club newWeaponForPlayer = new Grauldogs_Trusty_Club("Grauldog's Trusty Club", itemLevel);
+                //    Console.WriteLine("Do you want to replace a weapon with: " + newWeaponForPlayer + " level " + itemLevel + "?\n");
+                //    Console.WriteLine("Your weapon(Slot 1): " + player1.EntityWeapon.name + " level " + player1.EntityWeapon.weaponlevel);
+                //    if (player1.PlayerWeapon2 != null)
+                //    {
+                //        Console.WriteLine("Your weapon(Slot 2): " + player1.PlayerWeapon2.name + " level " + player1.PlayerWeapon2.weaponlevel);
+                //    }
+                //    Console.WriteLine("1) Yes");
+                //    Console.WriteLine("2) No");
+                //    string playerInput = Console.ReadLine();
+                //    try
+                //    {
+                //        playerAnswer = Int32.Parse(playerInput);
+                //    }
+                //    catch
+                //    {
+                //        LootPhase(player1, monsters, itemLevel);
+                //    }
+                //    if (playerAnswer == 1)
+                //    {
+                //        Console.WriteLine("Which Slot?");
+                //        Console.WriteLine("1) Slot 1");
+                //        Console.WriteLine("2) Slot 2");
+                //        string playerInput1 = Console.ReadLine();
+                //        try
+                //        {
+                //            playerAnswer = Int32.Parse(playerInput1);
+                //        }
+                //        catch
+                //        {
+                //            LootPhase(player1, monsters, itemLevel);
+                //        }
+                //        if (playerAnswer == 1)
+                //        {
+                //            player1.EntityWeapon = newWeaponForPlayer;
+                //        }
+                //    }
+                //    player1.XP += 50;
+                //}
                 if (newItem.itemType == "Weapon")
                 {
                     int weaponLevel = GetRandom(1, 5);
@@ -465,28 +465,34 @@ namespace The_Dragon_Lair_SoloRPG
             Fight(monsters, player1);
         }
 
-        public void DebuggerFight(Monster[] monsters, int playerHowFast)
+        public void DebuggerFight(List<Monster> monsters, int playerHowFast)
         {
-            for (int i = 0; i < monsters.Length; i++)
+            Basic_Map.Build(monsters, player1, "~");
+            for (int i = 0; i < monsters.Count; i++)
             {
                 Render array = new Render();
                 array.RenderMonsterStats(monsters[i]);
             }
             int howManyMonsterWent = 0;
-            while (monsters.Length - 1 != 0)
+            while (monsters.Count != 0)
             {
                 Fight_Rounds code = new Fight_Rounds();
                 Player code1 = new Player("", 0, 0, "");
                 code.RoundStart(monsters, code1);
-                for (int i = 0; i < monsters.Length - 1; i++)
+                for (int i = 0; i <= monsters.Count - 1; i++)
                 {
+                    if (monsters.Count == 1)
+                    {
+                        Console.WriteLine(monsters[i].Name + " wins!");
+                        return;
+                    }
                     if (monsters[i] != null)
                     {
                         if (monsters[i].Health > 0)
                         {
                             monsters[i].MonsterActions(monsters[i], player1, monsters, true);
                             Thread.Sleep(playerHowFast);
-                            if (monsters.Length == 0)
+                            if (monsters.Count == 1)
                             {
                                 Console.WriteLine(monsters[0].Name + " wins!");
                             }
@@ -494,20 +500,17 @@ namespace The_Dragon_Lair_SoloRPG
                         if (monsters[i].Health <= 0)
                         {
                             Console.WriteLine(monsters[i].Name + " has been defeated...");
-                            monsters[i] = null;
+                            monsters.Remove(monsters[i]);
                         }
                     }
                 }
                 Console.WriteLine("How many monsters went: " + howManyMonsterWent);
                 if (howManyMonsterWent == 1)
                 {
-                    for (int i = 0; i < monsters.Length; i++)
+                    if (monsters.Count == 1) 
                     {
-                        if (monsters[i] != null)
-                        {
-                            Console.WriteLine(monsters[i].Name + " wins!");
-                            return;
-                        }
+                        Console.WriteLine(monsters[0].Name + " wins!");
+                        return;
                     }
                 }
                 else

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Dynamic;
 using System.Text;
+using The_Dragon_Lair_SoloRPG.Maps;
 
 namespace The_Dragon_Lair_SoloRPG
 {
@@ -10,10 +11,11 @@ namespace The_Dragon_Lair_SoloRPG
     {
         public int currentRound = 0;
 
-        public void RoundStart(Monster[] monsters, Player player1) 
+        public void RoundStart(List<Monster> monsters, Player player1) 
         {
             currentRound += 1;
             Console.WriteLine("----------Round " + currentRound + " Start----------\n");
+            //Basic_Map.Build(monsters, player1, "~");
             if (player1.entityBleeding > 0)
             {
                 player1.Health -= player1.entityBleeding;
@@ -35,7 +37,7 @@ namespace The_Dragon_Lair_SoloRPG
             }
             Render code = new Render();
             int defeatedMonsters = 0;
-            for (int i = 0; i < monsters.Length; i++) 
+            for (int i = 0; i < monsters.Count; i++) 
             {
                 if (monsters[i] != null) 
                 {
@@ -56,30 +58,29 @@ namespace The_Dragon_Lair_SoloRPG
                         if (monsters[i].Health <= 0)
                         {
                             Console.WriteLine(monsters[i].Name + " has been defeated...");
+                            monsters.Remove(monsters[i]);
                         }
                         defeatedMonsters += 1;
                     }
                 }
             }
         }
-        public void RoundEnd(Monster[] monsters, Player player1, bool isDebuggerFight) 
+        public void RoundEnd(List<Monster> monsters, Player player1, bool isDebuggerFight) 
         {
             Program code = new Program();
             if (isDebuggerFight == false)
             {
-                for (int i = 0; i < monsters.Length - 1; i++)
-                {
-                    if (monsters[i] != null)
+                    if (monsters.Count != 0)
                     {
                         return;
                     }
-                }
+                
                 Program.ColorWriter(ConsoleColor.Green, "You Win!");
-                code.LootPhase(player1, monsters, GetRandom(1, monsters.Length + player1.level));
+                code.LootPhase(player1, monsters, GetRandom(1, monsters.Capacity + player1.level));
             }
             else if (isDebuggerFight == true)
             {
-                if (monsters.Length - 1 == 0)
+                if (monsters.Count == 1)
                     Program.ColorWriter(ConsoleColor.Green, monsters[0].Name + " Wins!");
             }
             Console.WriteLine("----------Round " + currentRound + " End----------\n");

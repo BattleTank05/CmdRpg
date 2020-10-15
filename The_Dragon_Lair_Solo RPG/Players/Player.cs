@@ -31,17 +31,17 @@ namespace The_Dragon_Lair_SoloRPG
             while (playerWeapon.weaponAttackAmount > 0)
             {
                 PlayerDamage1 = GetRandom(playerWeapon.weaponDamage - 4, playerWeapon.weaponDamage);
-                if (monster.Dodge > 0)
-                {
-                    if (PlayerDamage1 / monster.Dodge <= monster.Dodge)
-                    {
-                        Program.ColorWriter(ConsoleColor.Magenta, monster.Name + " successfully Dodges your desperate attack\n" + monster.Name + " loses 1 dodge! " + monster.Name + " Dodge: " + monster.Dodge);
-                        monster.Dodge -= 1;
-                        playerWeapon.weaponDurability -= 1;
-                        Program.ColorWriter(ConsoleColor.Red, player1.Name + " does 0 damage and loses 1 weapon durability point! " + player1.Name + " Weapon durability: " + playerWeapon.weaponDurability);
-                        PlayerDamage1 = 0;
-                    }
-                }
+                //if (monster.Dodge > 0)
+                //{
+                //    if (PlayerDamage1 / monster.Dodge <= monster.Dodge)
+                //    {
+                //        Program.ColorWriter(ConsoleColor.Magenta, monster.Name + " successfully Dodges your desperate attack\n" + monster.Name + " loses 1 dodge! " + monster.Name + " Dodge: " + monster.Dodge);
+                //        monster.Dodge -= 1;
+                //        playerWeapon.weaponDurability -= 1;
+                //        Program.ColorWriter(ConsoleColor.Red, player1.Name + " does 0 damage and loses 1 weapon durability point! " + player1.Name + " Weapon durability: " + playerWeapon.weaponDurability);
+                //        PlayerDamage1 = 0;
+                //    }
+                //}
                 if (PlayerDamage1 <= monster.Parry && monster.Parry > 0 && PlayerDamage1 > 0)
                 {
                     Program.ColorWriter(ConsoleColor.DarkCyan, monster.Name + " successfully Parries your futile blow! You deal 0 damage!");

@@ -12,18 +12,17 @@ namespace The_Dragon_Lair_SoloRPG.Maps
         public Basic_Map(string mapName) : base(mapName)
         {
         }
-        public static void Build(Monster[] monsters, Player player1, string spaceIcon) 
+        public static void Build(List<Monster> monsters, Player player1, string spaceIcon)
         {
-            Console.Clear();
+            //Console.Clear();
             Part1(monsters, player1, spaceIcon);
         }
-        public static void Part1(Monster[] monsters, Player player1, string spaceIcon)
+        public static void Part1(List<Monster> monsters, Player player1, string spaceIcon)
         {
             Section1(monsters, player1, spaceIcon);
         }
-        public static void Section1(Monster[] monsters, Player player1, string spaceIcon) 
+        public static void Section1(List<Monster> monsters, Player player1, string spaceIcon)
         {
-            Thread.Sleep(1000);
             int restoreLX = lengthX;
             int restoreLY = lengthY;
             int number = 1;
@@ -40,12 +39,15 @@ namespace The_Dragon_Lair_SoloRPG.Maps
                 bool isMonster = false;
                 while (lengthX > number)
                 {
-                    for (int i = 0; i < monsters.Length; i++)
+                    for (int i = 0; i < monsters.Count; i++)
                     {
-                        if (number + 1 == monsters[i].posX && number2 == monsters[i].posY)
+                        if (monsters[i] != null)
                         {
-                            Console.Write(" " + monsters[i].mapIcon);
-                            isMonster = true;
+                            if (number + 1 == monsters[i].posX && number2 == monsters[i].posY)
+                            {
+                                Console.Write(" " + monsters[i].mapIcon);
+                                isMonster = true;
+                            }
                         }
                     }
                     if (number + 1 == player1.posX && number2 == player1.posY)
@@ -56,7 +58,7 @@ namespace The_Dragon_Lair_SoloRPG.Maps
                     {
                         Console.Write(" " + spaceIcon);
                     }
-                    else if (isMonster == true) 
+                    else if (isMonster == true)
                     {
                         isMonster = false;
                     }

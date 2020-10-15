@@ -1,15 +1,15 @@
 ﻿using System;
 
-namespace Compendium1
+namespace The_Dragon_Lair_SoloRPG
 {
-    class Program
+    class Dictionary
     {
-        static void Main(string[] args)
+        public static void StartUp()
         {
             Console.WriteLine("Welcome to Compendium 1.0");
             UserInput();
         }
-        static string UserInput()
+        static void UserInput()
         {
             Console.WriteLine("\nCompendium 1.0\n");
             Console.WriteLine("Enter Classes, Races, Enemies, or Commands(/Help) by typing them in\n");
@@ -49,12 +49,15 @@ namespace Compendium1
                 case "/basic_stats":
                     Stats();
                     break;
+                case "/exit":
+                    Program.PlayerChooseGameMode();
+                    break;
                 default:
                     Console.WriteLine("Error\n");
                     UserInput();
                     break;
             }
-            return UserInfo;
+            return;
         }
         static void Mage() 
         {

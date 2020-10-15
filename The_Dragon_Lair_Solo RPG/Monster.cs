@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using System.Threading;
 
 namespace The_Dragon_Lair_SoloRPG
 {
@@ -17,13 +18,14 @@ namespace The_Dragon_Lair_SoloRPG
         {
         }
 
-        public void MonsterActions(Monster monster, Player player1, Monster[] monsters, Boolean isDebuggerFight)
+        public void MonsterActions(Monster monster, Player player1, List<Monster> monsters, Boolean isDebuggerFight)
         {
             #region monsterAttackAndClassVariables
             Render code = new Render();
             Monster start = new Monster(0,0, "");
-            int monsterAction = 11/*GetRandom(1, 11)*/;
-            int whichTarget = GetRandom(0, monsters.Length);
+            Map map = new Map("Base_Map");
+            int monsterAction = GetRandom(1, 12);
+            int whichTarget = GetRandom(0, monsters.Count);
             int isTargetPlayer = 0;
             #endregion
             switch (monsterAction)
@@ -35,28 +37,42 @@ namespace The_Dragon_Lair_SoloRPG
                     if (isDebuggerFight == false) 
                     {
                         isTargetPlayer = GetRandom(1, 3);
-                        if (isTargetPlayer == 2)
+                        if (isTargetPlayer == 2 && player1.posX == this.posX + 1 || player1.posX == this.posX - 1 || player1.posX == this.posX && player1.posY == this.posY + 1 || player1.posY == this.posY - 1 || player1.posY == this.posY)
                         {
                             player1.Health = start.MonsterAttack(player1, monster);
+                        }
+                        else 
+                        {
+                            Move(monster, map, monsters, player1, monster);
                         }
                     }
                     if (monsters[whichTarget] != this && monsters[whichTarget] != null)
                     {
+                        if (monsters[whichTarget].posX == this.posX + 1 || monsters[whichTarget].posX == this.posX - 1 || monsters[whichTarget].posX == this.posX && monsters[whichTarget].posY == this.posY + 1 || monsters[whichTarget].posY == this.posY - 1 || monsters[whichTarget].posY == this.posY) 
+                        {
                             monsters[whichTarget].Health = start.MonsterAttack(monsters[whichTarget], monster);
+                        }
                     }
                     break;
                 case 3:
                     if (isDebuggerFight == false)
                     {
                         isTargetPlayer = GetRandom(1, 3);
-                        if (isTargetPlayer == 2)
+                        if (isTargetPlayer == 2 && player1.posX == this.posX + 1 || player1.posX == this.posX - 1 || player1.posX == this.posX && player1.posY == this.posY + 1 || player1.posY == this.posY - 1 || player1.posY == this.posY)
                         {
                             player1.Health = start.MonsterAttack(player1, monster);
+                        }
+                        else
+                        {
+                            Move(monster, map, monsters, player1, monster);
                         }
                     }
                     if (monsters[whichTarget] != this && monsters[whichTarget] != null)
                     {
-                        monsters[whichTarget].Health = start.MonsterAttack(monsters[whichTarget], monster);
+                        if (monsters[whichTarget].posX == this.posX + 1 || monsters[whichTarget].posX == this.posX - 1 || monsters[whichTarget].posX == this.posX && monsters[whichTarget].posY == this.posY + 1 || monsters[whichTarget].posY == this.posY - 1 || monsters[whichTarget].posY == this.posY)
+                        {
+                            monsters[whichTarget].Health = start.MonsterAttack(monsters[whichTarget], monster);
+                        }
                     }
                     break;
                 case 4:
@@ -70,66 +86,94 @@ namespace The_Dragon_Lair_SoloRPG
                     if (isDebuggerFight == false)
                     {
                         isTargetPlayer = GetRandom(1, 3);
-                        if (isTargetPlayer == 2)
+                        if (isTargetPlayer == 2 && player1.posX == this.posX + 1 || player1.posX == this.posX - 1 || player1.posX == this.posX && player1.posY == this.posY + 1 || player1.posY == this.posY - 1 || player1.posY == this.posY)
                         {
                             player1.Health = start.MonsterAttack(player1, monster);
+                        }
+                        else
+                        {
+                            Move(monster, map, monsters, player1, monster);
                         }
                     }
                     if (monsters[whichTarget] != this && monsters[whichTarget] != null)
                     {
-                        monsters[whichTarget].Health = start.MonsterAttack(monsters[whichTarget], monster);
+                        if (monsters[whichTarget].posX == this.posX + 1 || monsters[whichTarget].posX == this.posX - 1 || monsters[whichTarget].posX == this.posX && monsters[whichTarget].posY == this.posY + 1 || monsters[whichTarget].posY == this.posY - 1 || monsters[whichTarget].posY == this.posY)
+                        {
+                            monsters[whichTarget].Health = start.MonsterAttack(monsters[whichTarget], monster);
+                        }
                     }
                     break;
                 case 7:
                     if (isDebuggerFight == false)
                     {
                         isTargetPlayer = GetRandom(1, 3);
-                        if (isTargetPlayer == 2)
+                        if (isTargetPlayer == 2 && player1.posX == this.posX + 1 || player1.posX == this.posX - 1 || player1.posX == this.posX && player1.posY == this.posY + 1 || player1.posY == this.posY - 1 || player1.posY == this.posY)
                         {
                             player1.Health = start.MonsterAttack(player1, monster);
+                        }
+                        else
+                        {
+                            Move(monster, map, monsters, player1, monster);
                         }
                     }
                     if (monsters[whichTarget] != this && monsters[whichTarget] != null)
                     {
-                        monsters[whichTarget].Health = start.MonsterAttack(monsters[whichTarget], monster);
+                        if (monsters[whichTarget].posX == this.posX + 1 || monsters[whichTarget].posX == this.posX - 1 || monsters[whichTarget].posX == this.posX && monsters[whichTarget].posY == this.posY + 1 || monsters[whichTarget].posY == this.posY - 1 || monsters[whichTarget].posY == this.posY)
+                        {
+                            monsters[whichTarget].Health = start.MonsterAttack(monsters[whichTarget], monster);
+                        }
                     }
                     break;
                 case 8:
                     if (isDebuggerFight == false)
                     {
                         isTargetPlayer = GetRandom(1, 3);
-                        if (isTargetPlayer == 2)
+                        if (isTargetPlayer == 2 && player1.posX == this.posX + 1 || player1.posX == this.posX - 1 || player1.posX == this.posX && player1.posY == this.posY + 1 || player1.posY == this.posY - 1 || player1.posY == this.posY)
                         {
                             player1.Health = start.MonsterAttack(player1, monster);
+                        }
+                        else
+                        {
+                            Move(monster, map, monsters, player1, monster);
                         }
                     }
                     if (monsters[whichTarget] != this && monsters[whichTarget] != null)
                     {
-                        monsters[whichTarget].Health = start.MonsterAttack(monsters[whichTarget], monster);
+                        if (monsters[whichTarget].posX == this.posX + 1 || monsters[whichTarget].posX == this.posX - 1 || monsters[whichTarget].posX == this.posX && monsters[whichTarget].posY == this.posY + 1 || monsters[whichTarget].posY == this.posY - 1 || monsters[whichTarget].posY == this.posY)
+                        {
+                            monsters[whichTarget].Health = start.MonsterAttack(monsters[whichTarget], monster);
+                        }
                     }
                     break;
                 case 9:
                     if (isDebuggerFight == false)
                     {
                         isTargetPlayer = GetRandom(1, 3);
-                        if (isTargetPlayer == 2)
+                        if (isTargetPlayer == 2 && player1.posX == this.posX + 1 || player1.posX == this.posX - 1 || player1.posX == this.posX && player1.posY == this.posY + 1 || player1.posY == this.posY - 1 || player1.posY == this.posY)
                         {
                             player1.Health = start.MonsterAttack(player1, monster);
+                        }
+                        else
+                        {
+                            Move(monster, map, monsters, player1, monster);
                         }
                     }
                     if (monsters[whichTarget] != this && monsters[whichTarget] != null)
                     {
-                        monsters[whichTarget].Health = start.MonsterAttack(monsters[whichTarget], monster);
+                        if (monsters[whichTarget].posX == this.posX + 1 || monsters[whichTarget].posX == this.posX - 1 || monsters[whichTarget].posX == this.posX && monsters[whichTarget].posY == this.posY + 1 || monsters[whichTarget].posY == this.posY - 1 || monsters[whichTarget].posY == this.posY)
+                        {
+                            monsters[whichTarget].Health = start.MonsterAttack(monsters[whichTarget], monster);
+                        }
                     }
                     break;
                 case 10:
                     monster.Parry = start.Monster_Parry(monster);
                     break;
                 case 11:
-                    Map map = new Map("Base_Map");
-                    Move(monster, map, monsters, player1);
+                    Move(monster, map, monsters, player1, monster);
                     break;
             }
+            //Thread.Sleep(5000);
         }
         public int MonsterAttack(Entity entity, Monster monster)
         {
@@ -145,16 +189,16 @@ namespace The_Dragon_Lair_SoloRPG
                 monsterAttack1 = GetRandom(monster.EntityWeapon.weaponDamage - 2, monster.EntityWeapon.weaponDamage);
                 //array.GainOrLoseStatsRenderer(monster, entity, "deals", monsterAttack1, "damage");
                 Program.ColorWriter(ConsoleColor.Red, monster.Name + " Deals " + monsterAttack1 + " Damage to " + entity.Name);
-                if (entity.Dodge > 0)
-                {
-                    if (monsterAttack1 / entity.Dodge <= entity.Dodge)
-                    {
-                        Program.ColorWriter(ConsoleColor.DarkGreen, entity.Name + " successfully Dodges " + monster.Name + "'s attack");
-                        entity.Dodge -= 1;
-                        monster.EntityWeapon.weaponDurability -= 1;
-                        monsterAttack1 = 0;
-                    }
-                }
+                //if (entity.Dodge > 0)
+                //{
+                //    if (monsterAttack1 / entity.Dodge <= entity.Dodge)
+                //    {
+                //        Program.ColorWriter(ConsoleColor.DarkGreen, entity.Name + " successfully Dodges " + monster.Name + "'s attack");
+                //        entity.Dodge -= 1;
+                //        monster.EntityWeapon.weaponDurability -= 1;
+                //        monsterAttack1 = 0;
+                //    }
+                //}
                 if (monsterAttack1 <= entity.Parry && entity.Parry >= 0 && monsterAttack1 > 0)
                 {
                     Program.ColorWriter(ConsoleColor.Cyan, entity.Name + " successfully Parries " + monster.Name + "'s attack");
@@ -226,6 +270,7 @@ namespace The_Dragon_Lair_SoloRPG
             }
 
             monster.EntityWeapon.weaponDurability -= 1;
+            Thread.Sleep(3000);
             return entity.Health;
         }
         public int Monster_Defend(Monster monster)
