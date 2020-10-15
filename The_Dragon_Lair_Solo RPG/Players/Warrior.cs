@@ -6,6 +6,8 @@ using System.Threading;
 using System.Linq;
 using The_Dragon_Lair_SoloRPG.Consumable.Potion;
 using System.Reflection.PortableExecutable;
+using The_Dragon_Lair_SoloRPG.Maps;
+using System.Data;
 
 namespace The_Dragon_Lair_SoloRPG.Players
 {
@@ -271,6 +273,39 @@ namespace The_Dragon_Lair_SoloRPG.Players
                     Map map = new Map("Base_Map");
                     Move(player1, map, monsters, player1, monsters[0]);
                     break;
+                case "7":
+                    Console.WriteLine("Your Potions: ");
+                    for (int i = 0; i < player1.entityPotions.Count - 1; i++) 
+                    {
+                        Console.WriteLine(i + ") " + player1.entityPotions[i].name);
+                    }
+                    Console.WriteLine("Which would you like to use?");
+                    int newerInput = 0;
+                    string newInput = Console.ReadLine();
+                    try 
+                    {
+                        newerInput = Int32.Parse(newInput);
+                    }
+                    catch { WarriorActions(player1, monsters); }
+                    if (newerInput! > 3 && newerInput! < 1 && player1.entityPotions[newerInput].name != "Empty_Potion") 
+                    {
+                        Basic_Map code2 = new Basic_Map("Base_Map");
+                        if (player1.entityPotions[newerInput].name == "Fire_Potion" && Entity.GetNearestEntity(player1, monsters, player1, code2).posX <= player1.posX + 3 && Entity.GetNearestEntity(player1, monsters, player1, code2).posX >= player1.posX - 3 && Entity.GetNearestEntity(player1, monsters, player1, code2).posY <= player1.posY + 3 && Entity.GetNearestEntity(player1, monsters, player1, code2).posY >= player1.posY - 3) 
+                        {
+                            player1.entityPotions[newerInput].PotionEffect("Fire_Potion", Entity.GetNearestEntity(player1, monsters, player1, code2), player1.entityPotions[newerInput].damage);
+                            player1.entityPotions.Remove(player1.entityPotions[newerInput]);
+                            Potion empty = new Potion("Empty_potion", player1.entityPotions.Count + 1);
+                            player1.entityPotions.Add(empty);
+                        }
+                    }
+                    if (player1.entityPotions[newerInput].name == "Health_Potion" && player1.Health < player1.maxHealth)
+                    {
+                        player1.entityPotions[newerInput].PotionEffect("healing", player1, player1.entityPotions[newerInput].damage);
+                        player1.entityPotions.Remove(player1.entityPotions[newerInput]);
+                        Potion empty = new Potion("Empty_potion", player1.entityPotions.Count + 1);
+                        player1.entityPotions.Add(empty);
+                    }
+                    break;
                 case "Stats":
                     Console.WriteLine("1) see your stats");
                     Console.WriteLine("2) see monster's stats");
@@ -298,7 +333,7 @@ namespace The_Dragon_Lair_SoloRPG.Players
                     }
                     WarriorActions(player1, monsters);
                     break;
-                case "7":
+                case "8":
                     if (player1.level >= 1)
                     {
                         int monsterList = 1;

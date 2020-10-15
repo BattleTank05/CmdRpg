@@ -7,8 +7,8 @@ namespace The_Dragon_Lair_SoloRPG.Maps
 {
     public class Basic_Map : Map
     {
-        public static int lengthX = 10;
-        public static int lengthY = 10;
+        public int lengthX = 10;
+        public int lengthY = 10;
         public Basic_Map(string mapName) : base(mapName)
         {
         }
@@ -23,21 +23,22 @@ namespace The_Dragon_Lair_SoloRPG.Maps
         }
         public static void Section1(List<Monster> monsters, Player player1, string spaceIcon)
         {
-            int restoreLX = lengthX;
-            int restoreLY = lengthY;
+            Basic_Map code = new Basic_Map("Basic_Map");
+            int restoreLX = code.lengthX;
+            int restoreLY = code.lengthY;
             int number = 1;
             int number2 = 1;
-            while (lengthX > number - 1)
+            while (code.lengthX > number - 1)
             {
                 Console.Write(" " + number);
                 number += 1;
             }
             Console.Write("\n");
-            while (lengthX > 0 && lengthY > number2 - 1)
+            while (code.lengthX > 0 && code.lengthY > number2 - 1)
             {
                 number = 0;
                 bool isMonster = false;
-                while (lengthX > number)
+                while (code.lengthX > number)
                 {
                     for (int i = 0; i < monsters.Count; i++)
                     {

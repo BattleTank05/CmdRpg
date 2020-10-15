@@ -12,6 +12,7 @@ using System.Reflection.Metadata.Ecma335;
 using The_Dragon_Lair_SoloRPG.Maps;
 using System.Collections.Generic;
 using System.Linq;
+using The_Dragon_Lair_SoloRPG.Consumable.Potion;
 
 namespace The_Dragon_Lair_SoloRPG
 {
@@ -44,8 +45,8 @@ namespace The_Dragon_Lair_SoloRPG
                 string PlayerName = Console.ReadLine();
                 #region DeclarePlayerVariables
                 player1 = new Player(PlayerName, 5, 5, "Y");
-                player1.Health += 10000;
-                player1.maxHealth += 20;
+                player1.Health += 40;
+                player1.maxHealth += 40;
                 player1.Strength += 2;
                 player1.Dodge += 1;
                 player1.Intellect += 1;
@@ -221,6 +222,41 @@ namespace The_Dragon_Lair_SoloRPG
                     Console.WriteLine("Creation Error... Restarting...");
                     PlayerChooseLoadout();
                     return;
+            }
+            code.RenderPlayerChoosing(4);
+            string info3 = Console.ReadLine();
+            try
+            {
+                playerInput = Int32.Parse(info3);
+            }
+            catch
+            {
+                Console.WriteLine("Creation Error... Restarting...");
+                PlayerChooseLoadout();
+                return;
+            }
+            int potionLevel = GetRandom(1, 5);
+            switch (playerInput)
+            {
+                case 1:
+                    Health_Potion playerPotion = new Health_Potion("Health_Potion", potionLevel);
+                    player1.entityPotions.Add(playerPotion);
+                    Console.WriteLine("Health Potion it is...");
+                    break;
+                case 2:
+                    Fire_Potion playerPotion1 = new Fire_Potion("Fire_Potion", potionLevel);
+                    player1.entityPotions.Add(playerPotion1);
+                    Console.WriteLine("Fire Potion it is...");
+                    break;
+                default:
+                    Console.WriteLine("Creation Error... Restarting...");
+                    PlayerChooseLoadout();
+                    return;
+            }
+            while (player1.entityPotions.Count < 3)
+            {
+                Potion empty = new Potion("Empty_Potion", player1.entityPotions.Count + 1);
+                player1.entityPotions.Add(empty);
             }
             ColorWriter(ConsoleColor.Gray, "ready yourself, Gladiator...\n");
             Thread.Sleep(1000);

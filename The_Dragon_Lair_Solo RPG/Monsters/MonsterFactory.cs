@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Text;
+using The_Dragon_Lair_SoloRPG.Consumable.Potion;
+using System.Diagnostics;
 
 namespace The_Dragon_Lair_SoloRPG.Monsters
 {
@@ -54,6 +56,38 @@ namespace The_Dragon_Lair_SoloRPG.Monsters
                     Hides newTrollArmor = new Hides("");
                     troll.EntityArmor = newTrollArmor;
                 }
+                int doesBargGetPotion = GetRandom(0, 5);
+                if (doesBargGetPotion == 3) 
+                {
+                    int howManyPotions = GetRandom(-2, 4);
+                    if (howManyPotions < 1) { howManyPotions = 0; }
+                    else 
+                    {
+                        int whichPotion = 0;
+                        while (howManyPotions > 0) 
+                        {
+                            whichPotion = GetRandom(1, 3);
+                            if (whichPotion == 1)
+                            {
+                                Health_Potion newPotion = new Health_Potion("Health_Potion", level);
+                                newPotion.potionNumber = troll.entityPotions.Count + 1;
+                                troll.entityPotions.Add(newPotion);
+                            }
+                            else if (whichPotion == 2)
+                            {
+                                Fire_Potion newPotion1 = new Fire_Potion("Fire_Potion", level);
+                                newPotion1.potionNumber = troll.entityPotions.Count + 1;
+                                troll.entityPotions.Add(newPotion1);
+                            }
+                            howManyPotions -= 1;
+                        }
+                        while (troll.entityPotions.Count < 3) 
+                        {
+                            Potion empty = new Potion("Empty_Potion", troll.entityPotions.Count + 1);
+                            troll.entityPotions.Add(empty);
+                        }
+                    }
+                }
                 Enemy.DoBargAmplifiers(amplifier);
             }
             else if (pickedMonsterName == 4 || pickedMonsterName == 5 || pickedMonsterName == 6)
@@ -80,6 +114,38 @@ namespace The_Dragon_Lair_SoloRPG.Monsters
                     Hides newTrollArmor = new Hides("");
                     troll.EntityArmor = newTrollArmor;
                 }
+                int doesKlergGetPotion = GetRandom(0, 5);
+                if (doesKlergGetPotion == 3)
+                {
+                    int howManyPotions = GetRandom(-2, 4);
+                    if (howManyPotions < 1) { howManyPotions = 0; }
+                    else
+                    {
+                        int whichPotion = 0;
+                        while (howManyPotions > 0)
+                        {
+                            whichPotion = GetRandom(1, 3);
+                            if (whichPotion == 1)
+                            {
+                                Health_Potion newPotion = new Health_Potion("Health_Potion", level);
+                                newPotion.potionNumber = troll.entityPotions.Count + 1;
+                                troll.entityPotions.Add(newPotion);
+                            }
+                            else if (whichPotion == 2)
+                            {
+                                Fire_Potion newPotion1 = new Fire_Potion("Fire_Potion", level);
+                                newPotion1.potionNumber = troll.entityPotions.Count + 1;
+                                troll.entityPotions.Add(newPotion1);
+                            }
+                            howManyPotions -= 1;
+                        }
+                        while (troll.entityPotions.Count < 3)
+                        {
+                            Potion empty = new Potion("Empty_Potion", troll.entityPotions.Count + 1);
+                            troll.entityPotions.Add(empty);
+                        }
+                    }
+                }
                 Enemy.DoKlergAmplifiers(amplifier);
             }
             else if (pickedMonsterName == 7)
@@ -102,6 +168,38 @@ namespace The_Dragon_Lair_SoloRPG.Monsters
                 {
                     Hides newTrollArmor = new Hides("");
                     troll.EntityArmor = newTrollArmor;
+                }
+                int doesGrauldogGetPotion = GetRandom(0, 5);
+                if (doesGrauldogGetPotion == 3)
+                {
+                    int howManyPotions = GetRandom(-2, 4);
+                    if (howManyPotions < 1) { howManyPotions = 0; }
+                    else
+                    {
+                        int whichPotion = 0;
+                        while (howManyPotions > 0)
+                        {
+                            whichPotion = GetRandom(1, 3);
+                            if (whichPotion == 1)
+                            {
+                                Health_Potion newPotion = new Health_Potion("Health_Potion", level);
+                                newPotion.potionNumber = troll.entityPotions.Count + 1;
+                                troll.entityPotions.Add(newPotion);
+                            }
+                            else if (whichPotion == 2)
+                            {
+                                Fire_Potion newPotion1 = new Fire_Potion("Fire_Potion", level);
+                                newPotion1.potionNumber = troll.entityPotions.Count + 1;
+                                troll.entityPotions.Add(newPotion1);
+                            }
+                            howManyPotions -= 1;
+                        }
+                        while (troll.entityPotions.Count < 3)
+                        {
+                            Potion empty = new Potion("Empty_Potion", troll.entityPotions.Count + 1);
+                            troll.entityPotions.Add(empty);
+                        }
+                    }
                 }
                 Enemy.DoGrauldogAmplifiers(amplifier);
             }
@@ -140,6 +238,38 @@ namespace The_Dragon_Lair_SoloRPG.Monsters
                     Hides newBarbarianArmor = new Hides("");
                     barbarian.EntityArmor = newBarbarianArmor;
                 }
+                int doesGulfardGetPotion = GetRandom(0, 5);
+                if (doesGulfardGetPotion == 3)
+                {
+                    int howManyPotions = GetRandom(-2, 4);
+                    if (howManyPotions < 1) { howManyPotions = 0; }
+                    else
+                    {
+                        int whichPotion = 0;
+                        while (howManyPotions > 0)
+                        {
+                            whichPotion = GetRandom(1, 3);
+                            if (whichPotion == 1)
+                            {
+                                Health_Potion newPotion = new Health_Potion("Health_Potion", level);
+                                newPotion.potionNumber = barbarian.entityPotions.Count + 1;
+                                barbarian.entityPotions.Add(newPotion);
+                            }
+                            else if (whichPotion == 2)
+                            {
+                                Fire_Potion newPotion1 = new Fire_Potion("Fire_Potion", level);
+                                newPotion1.potionNumber = barbarian.entityPotions.Count + 1;
+                                barbarian.entityPotions.Add(newPotion1);
+                            }
+                            howManyPotions -= 1;
+                        }
+                        while (barbarian.entityPotions.Count < 3)
+                        {
+                            Potion empty = new Potion("Empty_Potion", barbarian.entityPotions.Count + 1);
+                            barbarian.entityPotions.Add(empty);
+                        }
+                    }
+                }
                 Enemy.DoGulfardAmplifiers(amplifier);
             }
             else if (pickedMonsterName == 2)
@@ -165,6 +295,38 @@ namespace The_Dragon_Lair_SoloRPG.Monsters
                 {
                     Hides newBerkArmor = new Hides("");
                     barbarian.EntityArmor = newBerkArmor;
+                }
+                int doesBerkGetPotion = GetRandom(0, 5);
+                if (doesBerkGetPotion == 3)
+                {
+                    int howManyPotions = GetRandom(-2, 4);
+                    if (howManyPotions < 1) { howManyPotions = 0; }
+                    else
+                    {
+                        int whichPotion = 0;
+                        while (howManyPotions > 0)
+                        {
+                            whichPotion = GetRandom(1, 3);
+                            if (whichPotion == 1)
+                            {
+                                Health_Potion newPotion = new Health_Potion("Health_Potion", level);
+                                newPotion.potionNumber = barbarian.entityPotions.Count + 1;
+                                barbarian.entityPotions.Add(newPotion);
+                            }
+                            else if (whichPotion == 2)
+                            {
+                                Fire_Potion newPotion1 = new Fire_Potion("Fire_Potion", level);
+                                newPotion1.potionNumber = barbarian.entityPotions.Count + 1;
+                                barbarian.entityPotions.Add(newPotion1);
+                            }
+                            howManyPotions -= 1;
+                        }
+                        while (barbarian.entityPotions.Count < 3)
+                        {
+                            Potion empty = new Potion("Empty_Potion", barbarian.entityPotions.Count + 1);
+                            barbarian.entityPotions.Add(empty);
+                        }
+                    }
                 }
                 Enemy.DoBerkAmplifiers(amplifier);
             }

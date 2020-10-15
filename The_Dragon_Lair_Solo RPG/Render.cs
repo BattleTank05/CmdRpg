@@ -58,6 +58,7 @@ namespace The_Dragon_Lair_SoloRPG
             string[] playerChooseClass = { "Choose a Class: ", "1) Warrior", "2) Mage", "3) Rogue" };
             string[] playerChooseWeapons = { "Choose a Weapon: ", "1) Broadsword", "2) Mace", "3) Twin Daggers", "4) War Axe", "5) Random" };
             string[] playerChooseArmors = { "Choose your Armor: ", "1) Chainmail", "2) Thick leather", "3) Sleek Silken Thinking Cloth", "4) Plate Armor", "5) Random" };
+            string[] playerChoosingPotions = { "Choose a Potion: ", "1) Health Potion", "2) Fire Potion" };
             switch (whichChoosing) 
             {
                 case 1:
@@ -76,6 +77,12 @@ namespace The_Dragon_Lair_SoloRPG
                     for (int i = 0; i < playerChooseArmors.Length; i++)
                     {
                         Program.ColorWriter(ConsoleColor.Yellow, playerChooseArmors[i]);
+                    }
+                    break;
+                case 4:
+                    for (int i = 0; i < playerChoosingPotions.Length; i++)
+                    {
+                        Program.ColorWriter(ConsoleColor.Yellow, playerChoosingPotions[i]);
                     }
                     break;
             }

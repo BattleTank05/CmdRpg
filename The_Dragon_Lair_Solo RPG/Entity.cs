@@ -115,18 +115,19 @@ namespace The_Dragon_Lair_SoloRPG
             return entity.XP + change;
 
         }
-        //public Potion GetPotion(List<Potion> potion, int number) 
-        //{
-        //    if (potion != null) 
-        //    {
-        //        return potion.Where(c => c.potionNumber == number)
-        //        .Single();
-        //    }
-        //    Potion code = new Potion("", 0);
-        //    return code;
-        //}
+        public Potion GetPotion(List<Potion> potion, int number)
+        {
+            if (potion != null)
+            {
+                return potion.Where(c => c.potionNumber == number)
+                .Single();
+            }
+            Potion code = new Potion("", 0);
+            return code;
+        }
         public void Move(Entity entity, Map map, List<Monster> monsters, Player player1, Monster monster) 
         {
+            Basic_Map code = new Basic_Map("Base_Map");
             if (entity == player1)
             {
                 Console.Write("Enter PosX: ");
@@ -231,7 +232,7 @@ namespace The_Dragon_Lair_SoloRPG
             if (map.mapName == "Base_Map") 
             {
                 int tries = 3;
-                while (entity.posX <= 0 || entity.posY <= 0 || entity.posX > Basic_Map.lengthX || entity.posY > Basic_Map.lengthY && tries > 0)
+                while (entity.posX <= 0 || entity.posY <= 0 || entity.posX > code.lengthX || entity.posY > code.lengthY && tries > 0)
                 {
                     Move(entity, map, monsters, player1, monster);
                     tries -= 1;
@@ -242,6 +243,78 @@ namespace The_Dragon_Lair_SoloRPG
                 }
                 Basic_Map.Build(monsters, player1, "~");
             }
+        }
+        public static Entity GetNearestEntity(Entity entity, List<Monster> monsters, Player player1, Basic_Map map) 
+        {
+            int number = 0;
+            int number1 = 0;
+            int restoreOriginX = entity.posX;
+            int restoreOriginY = entity.posY;
+            int currentClosestEntityPosX = 0;
+            int currentClosestEntityPosY = 0;
+            for (int i = 0; i < monsters.Count - 1; i++) 
+            {
+                while (entity.posX != monsters[i].posX) 
+                {
+                    entity.posX += 1;
+                    number += 1;
+                    if (entity.posX >= map.lengthX)
+                    {
+                        number = 0;
+                        while (entity.posX != monsters[i].posX)
+                        {
+                            entity.posX -= 1;
+                            number += 1;
+                        }
+                        if (number < number || number == 0)
+                        {
+                            number = currentClosestEntityPosX;
+                        }
+                    }
+                    else 
+                    {
+                        if (number < number || number == 0) 
+                        {
+                            number = currentClosestEntityPosX;
+                        }
+                        while (entity.posY != monsters[i].posY)
+                        {
+                            entity.posY += 1;
+                            number1 += 1;
+                            if (entity.posY >= map.lengthY)
+                            {
+                                number1 = 0;
+                                while (entity.posY != monsters[i].posY)
+                                {
+                                    entity.posY -= 1;
+                                    number1 += 1;
+                                }
+                                if (number1 < number1 || number1 == 0)
+                                {
+                                    number = currentClosestEntityPosX;
+                                }
+                            }
+                            else
+                            {
+                                if (number1 < number1 || number1 == 0)
+                                {
+                                    number = currentClosestEntityPosX;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            for (int i = 0; i < monsters.Count - 1; i++) 
+            {
+                if (monsters[i].posX == currentClosestEntityPosX && monsters[i].posY == currentClosestEntityPosY) 
+                {
+                    return monsters[i];
+                }
+            }
+            entity.posX = restoreOriginX;
+            entity.posY = restoreOriginY;
+            return entity;
         }
         static int GetRandom(int min, int max) 
         {

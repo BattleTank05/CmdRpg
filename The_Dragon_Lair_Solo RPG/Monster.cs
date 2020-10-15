@@ -5,6 +5,8 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.IO.MemoryMappedFiles;
+using The_Dragon_Lair_SoloRPG.Consumable.Potion;
+using The_Dragon_Lair_SoloRPG.Maps;
 
 namespace The_Dragon_Lair_SoloRPG
 {
@@ -25,7 +27,8 @@ namespace The_Dragon_Lair_SoloRPG
             Render code = new Render();
             Monster start = new Monster(0,0, "");
             Map map = new Map("Base_Map");
-            int monsterAction = GetRandom(1, 12);
+            Basic_Map code2 = new Basic_Map("Base_Map");
+            int monsterAction = GetRandom(12, 12);
             int whichTarget = GetRandom(0, monsters.Count);
             int isTargetPlayer = 0;
             #endregion
@@ -172,6 +175,25 @@ namespace The_Dragon_Lair_SoloRPG
                     break;
                 case 11:
                     Move(monster, map, monsters, player1, monster);
+                    break;
+                case 12:
+                    for (int i = 0; i < monster.entityPotions.Count - 1;) 
+                    {
+                        if (monster.entityPotions[i].name == "Health_Potion" && monster.Health < monster.maxHealth) 
+                        {
+                            monster.entityPotions[i].PotionEffect("healing", monster, monster.entityPotions[i].damage);
+                            monster.entityPotions.Remove(monster.entityPotions[i]);
+                            Potion empty = new Potion("Empty_potion", monster.entityPotions.Count + 1);
+                            monster.entityPotions.Add(empty);
+                        }
+                        if (monster.entityPotions[i].name == "Fire_Potion" && Entity.GetNearestEntity(monster, monsters, player1, code2).posX <= monster.posX + 3 && Entity.GetNearestEntity(monster, monsters, player1, code2).posX >= monster.posX - 3 && Entity.GetNearestEntity(monster, monsters, player1, code2).posY <= monster.posY + 3 && Entity.GetNearestEntity(monster, monsters, player1, code2).posY >= monster.posY - 3) 
+                        {
+                            monster.entityPotions[i].PotionEffect("Fire_Potion", Entity.GetNearestEntity(monster, monsters, player1, code2), monster.entityPotions[i].damage);
+                            monster.entityPotions.Remove(monster.entityPotions[i]);
+                            Potion empty = new Potion("Empty_potion", monster.entityPotions.Count + 1);
+                            monster.entityPotions.Add(empty);
+                        }
+                    }
                     break;
             }
             //Thread.Sleep(5000);
