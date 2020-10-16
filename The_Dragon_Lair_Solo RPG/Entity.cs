@@ -128,6 +128,8 @@ namespace The_Dragon_Lair_SoloRPG
         public void Move(Entity entity, Map map, List<Monster> monsters, Player player1, Monster monster) 
         {
             Basic_Map code = new Basic_Map("Base_Map");
+            int originPosX = entity.posX;
+            int originPosY = entity.posY;
             if (entity == player1)
             {
                 Console.Write("Enter PosX: ");
@@ -180,12 +182,14 @@ namespace The_Dragon_Lair_SoloRPG
                                     if (playerAnswer == 1)
                                     {
                                         monsters[i].Health = player1.PlayerAttack(monsters[i], player1, player1.EntityWeapon);
-                                        return;
+                                        entity.posY = originPosY;
+                                        entity.posX = originPosX;
                                     }
                                     else if (playerAnswer == 2)
                                     {
                                         monsters[i].Health = player1.PlayerAttack(monsters[i], player1, player1.PlayerWeapon2);
-                                        return;
+                                        entity.posY = originPosY;
+                                        entity.posX = originPosX;
                                     }
                                 }
                                 else
@@ -213,6 +217,8 @@ namespace The_Dragon_Lair_SoloRPG
                     if (actualInput == player1.posX && actualInput1 == player1.posY)
                     {
                         player1.Health = monster.MonsterAttack(player1, monster, monsters);
+                        entity.posY = originPosY;
+                        entity.posX = originPosX;
                     }
                 }
                 else
@@ -222,26 +228,41 @@ namespace The_Dragon_Lair_SoloRPG
                         if (entity.posX == monsters[i].posX && entity.posY == monsters[i].posY)
                         {
                             entity.Health = monster.MonsterAttack(entity, monster, monsters);
-                            return;
+                            entity.posY = originPosY;
+                            entity.posX = originPosX;
                         }
                     }
                 }
                 entity.posX = actualInput;
                 entity.posY = actualInput1;
             }
-            if (map.mapName == "Base_Map") 
+            if (map.mapName == "Base_Map")
             {
                 int tries = 3;
                 while (entity.posX <= 0 || entity.posY <= 0 || entity.posX > code.lengthX || entity.posY > code.lengthY && tries > 0)
                 {
                     Move(entity, map, monsters, player1, monster);
                     tries -= 1;
-                    if (tries == 0) 
+                    if (tries == 0)
                     {
                         return;
                     }
                 }
                 Basic_Map.Build(monsters, player1, "~");
+            }
+            else if (map.mapName == "Arena_Branches") 
+            {
+                int tries = 3;
+                while (entity.posX <= 0 || entity.posY <= 0 || entity.posX > code.lengthX || entity.posY > code.lengthY && tries > 0)
+                {
+                    Move(entity, map, monsters, player1, monster);
+                    tries -= 1;
+                    if (tries == 0)
+                    {
+                        return;
+                    }
+                }
+                Arena_Branches.Build(monsters, player1, "~");
             }
         }
         public static Entity GetNearestEntity(Entity entity, List<Monster> monsters, Player player1, Basic_Map map) 
@@ -266,14 +287,14 @@ namespace The_Dragon_Lair_SoloRPG
                             entity.posX -= 1;
                             number += 1;
                         }
-                        if (number < number || number == 0)
+                        if (number < currentClosestEntityPosX || number == 0)
                         {
                             number = currentClosestEntityPosX;
                         }
                     }
                     else 
                     {
-                        if (number < number || number == 0) 
+                        if (number < currentClosestEntityPosX || number == 0) 
                         {
                             number = currentClosestEntityPosX;
                         }
@@ -289,16 +310,16 @@ namespace The_Dragon_Lair_SoloRPG
                                     entity.posY -= 1;
                                     number1 += 1;
                                 }
-                                if (number1 < number1 || number1 == 0)
+                                if (number1 < currentClosestEntityPosY || number1 == 0)
                                 {
-                                    number = currentClosestEntityPosX;
+                                    number = currentClosestEntityPosY;
                                 }
                             }
                             else
                             {
-                                if (number1 < number1 || number1 == 0)
+                                if (number1 < currentClosestEntityPosY || number1 == 0)
                                 {
-                                    number = currentClosestEntityPosX;
+                                    number = currentClosestEntityPosY;
                                 }
                             }
                         }

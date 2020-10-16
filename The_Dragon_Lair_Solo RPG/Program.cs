@@ -253,7 +253,7 @@ namespace The_Dragon_Lair_SoloRPG
                     PlayerChooseLoadout();
                     return;
             }
-            while (player1.entityPotions.Count < 3)
+            while (player1.entityPotions.Count < 4)
             {
                 Potion empty = new Potion("Empty_Potion", player1.entityPotions.Count + 1);
                 player1.entityPotions.Add(empty);
@@ -299,7 +299,9 @@ namespace The_Dragon_Lair_SoloRPG
             #endregion
             while (player1.Health > 0 && monsters != null)
             {
-                Basic_Map.Build(monsters, player1, "~");
+                int whichMap = GetRandom(1, 3);
+                if (whichMap == 1) { Basic_Map.Build(monsters, player1, "~"); }
+                else if (whichMap == 2) { Arena_Branches.Build(monsters, player1, "~"); }
                 if (player1.Health > 0)
                 {
                     code.RoundStart(monsters, player1);
